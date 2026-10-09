@@ -48,8 +48,8 @@ const buttons = order.map((platform) => {
               )}
             </span>
             <span class="mk-text">
-              {!compact && <small>Comprar en</small>}
-              <strong>{short}</strong>
+              {!compact && <small>Quiero mi piel sin manchas</small>}
+              <strong>{compact ? short : `Comprar en ${short}`}</strong>
             </span>
             {href ? (
               <span class="mk-arrow" aria-hidden="true">→</span>
@@ -82,9 +82,10 @@ const buttons = order.map((platform) => {
   }
   .buy-group {
     display: grid;
-    gap: 12px;
+    gap: 18px 12px;
+    padding-top: 6px;
   }
-  @container (min-width: 580px) {
+  @container (min-width: 760px) {
     .buy:not(.buy--stack) .buy-group {
       grid-template-columns: 1fr 1fr;
     }
@@ -169,7 +170,7 @@ const buttons = order.map((platform) => {
     opacity: 0.8;
   }
   .mk-text strong {
-    font-size: 1.08rem;
+    font-size: clamp(0.98rem, 3.6vw, 1.08rem);
     font-weight: 600;
     letter-spacing: 0.01em;
     white-space: nowrap;
@@ -182,15 +183,18 @@ const buttons = order.map((platform) => {
     transform: translateX(3px);
   }
   .mk-soon {
-    flex: none;
-    font-size: 0.64rem;
+    position: absolute;
+    top: -9px;
+    right: 14px;
+    font-size: 0.6rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 5px 9px;
+    padding: 4px 9px;
     border-radius: 999px;
     background: var(--mk-fg);
     color: var(--mk-bg);
+    box-shadow: 0 0 0 2px var(--ob-white);
   }
 
   /* Versión compacta (barra fija en móvil) */

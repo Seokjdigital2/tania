@@ -102,6 +102,13 @@ Todo en `src/data/product.ts`.
 | 8.5 | Verificación de Bing Webmaster Tools | ⬜ | `site.verification.bing` |
 | 8.6 | Hosting (Vercel o Netlify) y DNS del dominio | ⬜ | Ver `README.md` |
 
-## 9. Día del lanzamiento
+## 9. Versión 2 (rama `claude/tania-version-2`)
+
+| # | Tema | Estado | Notas |
+|---|---|---|---|
+| 9.1 | Validar el mensaje "Tu piel sin manchas" con asesoría regulatoria | ⬜ | Ver `docs/VERSION-2.md`. |
+| 9.2 | Elegir versión 1 o 2 para lanzar | ⬜ | |
+
+## 10. Día del lanzamiento
 
 Ver `docs/checklist-lanzamiento.md`.

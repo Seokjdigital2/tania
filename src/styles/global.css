@@ -11,18 +11,27 @@
 @import '@fontsource/allura/latin-400.css';
 
 :root {
+  /*
+   * Paleta v2 — cálida "nude" (tendencia actual en belleza para mujeres de 20 a 40 años):
+   *  ~70 % neutros cálidos (blanco, arena)        → fondos y respiro
+   *  ~20 % nude y mocca (rosa nude, Mocha Mousse) → secciones, tarjetas, detalles
+   *  ~10 % acentos (dorado atardecer, verde hoja) → precio, íconos, micro detalles
+   * Los nombres --ob-* se conservan para no tocar los componentes.
+   */
   --ob-white: #ffffff;
-  --ob-ivory: #fbf9f8;
-  --ob-blush-100: #fbeff1;
-  --ob-blush-300: #f3cdd3;
-  --ob-blush-500: #e6a3ae;
-  --ob-leaf-300: #a9d46f;
-  --ob-leaf-500: #7db83a;
-  --ob-leaf-700: #4e7d23;
-  --ob-plum-900: #3a1f2b;
-  --ob-plum-700: #5c3346;
-  --ob-gray-500: #6f6468;
-  --ob-line: #eee7e8;
+  --ob-ivory: #f8f2ec; /* arena */
+  --ob-blush-100: #f6e9e2; /* nude claro */
+  --ob-blush-300: #ebd0c4; /* nude rosado (mancha del logo) */
+  --ob-blush-500: #c9917f; /* rosa terracota suave */
+  --ob-leaf-300: #b9cf8f;
+  --ob-leaf-500: #8fae5a;
+  --ob-leaf-700: #5f7a37;
+  --ob-plum-900: #33221e; /* cacao: texto principal */
+  --ob-plum-700: #7a5244; /* mocca profundo */
+  --ob-mocha: #a47864; /* Mocha Mousse */
+  --ob-sun: #d9965a; /* dorado atardecer */
+  --ob-gray-500: #76665f;
+  --ob-line: #ece1d9;
 
   --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --font-sans: 'Jost Variable', 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -151,7 +160,7 @@ p {
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--ob-leaf-700);
+  color: var(--ob-plum-700);
   margin-bottom: 1.1rem;
 }
 

@@ -54,7 +54,9 @@ const path = Astro.url.pathname;
     <div class="actions">
       <a class="delivery-link" href="/entrega-puerto-vallarta/">Entrega local</a>
       <a class="btn buy-cta" href="/crema-desmanchadora/#comprar">
-        Comprar{product.priceMXN && <span class="cta-price"> · ${product.priceMXN}</span>}
+        <span class="cta-long">Quiero mi piel sin manchas</span><span class="cta-short">Comprar</span>{
+          product.priceMXN && <span class="cta-price"> · ${product.priceMXN}</span>
+        }
       </a>
     </div>
   </div>
@@ -204,6 +206,14 @@ const path = Astro.url.pathname;
   .cta-price {
     letter-spacing: 0.06em;
   }
+  .cta-short {
+    display: none;
+  }
+  @media (max-width: 1279px) {
+    .delivery-link {
+      display: none;
+    }
+  }
   .menu-toggle {
     display: none;
     width: 44px;
@@ -247,8 +257,12 @@ const path = Astro.url.pathname;
       grid-row: 1;
     }
     .delivery-link,
-    .cta-price {
+    .cta-price,
+    .cta-long {
       display: none;
+    }
+    .cta-short {
+      display: inline;
     }
     .buy-cta {
       min-height: 40px;
