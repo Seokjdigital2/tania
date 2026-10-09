@@ -14,7 +14,7 @@ Texto provisional. Fricción, piel seca y engrosamiento.
 ## Rutina sugerida
 
 1. Exfoliación suave una o dos veces por semana.
-2. Crema Organic Beauty todos los días.
+2. Crema Beauty Organic todos los días.
 3. Hidratación constante.
 
 ## ¿Cuándo acudir al dermatólogo?

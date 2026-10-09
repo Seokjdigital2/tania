@@ -10,13 +10,13 @@ provisional: true
 ## Rutina de mañana
 
 1. Limpieza suave.
-2. Crema Organic Beauty.
+2. Crema Beauty Organic.
 3. Protector solar de amplio espectro.
 
 ## Rutina de noche
 
 1. Desmaquillado y limpieza.
-2. Crema Organic Beauty.
+2. Crema Beauty Organic.
 
 ## Consejos
 

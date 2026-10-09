@@ -1,4 +1,4 @@
-# Tablero de pendientes — Organic Beauty
+# Tablero de pendientes — Beauty Organic
 
 Estado del sitio: **pre-lanzamiento** (`prelaunch: true` en `src/config/site.ts`).
 Mientras siga así, todas las páginas llevan `noindex` y se muestra la franja "Sitio en construcción".
@@ -13,7 +13,7 @@ Mientras siga así, todas las páginas llevan `noindex` y se muestra la franja "
 |---|---|---|---|
 | 1.1 | URL de la crema en **Mercado Libre** | ⬜ (llega mañana) | `src/config/site.ts` → `buy.mercadolibre` |
 | 1.2 | URL de la crema en **TikTok Shop** | ⬜ (llega mañana) | `src/config/site.ts` → `buy.tiktokshop` |
-| 1.3 | Precio en MXN | ⬜ | `src/data/product.ts` → `priceMXN` |
+| 1.3 | Precio en MXN | ✅ $450 MXN por pieza | `src/data/product.ts` → `priceMXN` |
 
 > En cuanto se pega cada URL, sus botones se activan solos en todo el sitio (hero, barra fija en móvil, página de producto, artículos y CTA final).
 
@@ -22,8 +22,9 @@ Mientras siga así, todas las páginas llevan `noindex` y se muestra la franja "
 | # | Dato | Estado | Notas |
 |---|---|---|---|
 | 2.1 | Logotipo en **SVG** o vector (AI/PDF) | ⬜ | Hoy se usa un recorte de la foto del posavasos (`src/assets/img/logo-wordmark.png`). |
+| 2.1b | ⚠️ El logo dice **"ORGANIC Beauty"** pero la marca se llama **Beauty Organic** | ⬜ | Para SEO y para las IAs conviene que el logo, el sitio y los marketplaces digan lo mismo. Decidir si se ajusta el logo. |
 | 2.2 | Variante monograma para favicon | ⬜ | Hoy el favicon es el logo completo reducido. |
-| 2.3 | Dominio definitivo | ⬜ | `astro.config.mjs` → `SITE_URL` y `src/config/site.ts` → `url` (hoy dice `organicbeauty.mx`). |
+| 2.3 | Dominio definitivo | ⬜ | `astro.config.mjs` → `SITE_URL` y `src/config/site.ts` → `url` (hoy dice `beautyorganic.mx`). |
 | 2.4 | Razón social | ⬜ | `site.legalName` |
 
 ## 3. Datos del producto
@@ -32,7 +33,7 @@ Todo en `src/data/product.ts`.
 
 | # | Dato | Estado | Notas |
 |---|---|---|---|
-| 3.1 | Nombre comercial exacto | 🟨 | Hoy: "Crema desmanchadora Organic Beauty". |
+| 3.1 | Nombre comercial exacto | 🟨 | Hoy: "Crema desmanchadora Beauty Organic". |
 | 3.2 | Contenido neto (g / ml) | ⬜ | |
 | 3.3 | Medidas del envase | ✅ | 8 cm de diámetro × 6 cm de altura (de la ficha). |
 | 3.4 | Ingredientes clave (3) y qué aporta cada uno | 🟨 | Hoy: "Ingrediente clave 1, 2, 3". **No inventar.** |
@@ -50,7 +51,7 @@ Todo en `src/data/product.ts`.
 
 | # | Dato | Estado | Dónde |
 |---|---|---|---|
-| 4.1 | Foto | 🟨 | Se usa la foto con fondo de graffiti. Ideal: una sesión en fondo claro para seguir la regla 80/10/10. |
+| 4.1 | Fotos | ✅ | Playa (principal) y urbana (secundaria). Opcional: una foto en fondo claro para la tarjeta de autora en artículos. |
 | 4.2 | Historia y propósito (2 a 4 párrafos) | ⬜ | `src/pages/sobre-tania.astro` |
 | 4.3 | Frase corta para la página de inicio | ⬜ | `src/pages/index.astro`, sección "Hola, soy Tania" |
 | 4.4 | Apellido (opcional) | ⬜ | `site.founder.fullName` |

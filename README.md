@@ -1,6 +1,6 @@
-# Organic Beauty · sitio web
+# Beauty Organic · sitio web
 
-Landing page y hub de contenido SEO de **Organic Beauty**, la crema para cara y cuerpo creada por Tania en Puerto Vallarta.
+Landing page y hub de contenido SEO de **Beauty Organic**, la crema para cara y cuerpo creada por Tania en Puerto Vallarta.
 Es un sitio estático hecho con [Astro](https://astro.build), optimizado para buscadores (Google, Bing, DuckDuckGo) y para asistentes de IA.
 
 El sitio **no cobra**: lleva a las visitantes a comprar en **Mercado Libre** o **TikTok Shop**.

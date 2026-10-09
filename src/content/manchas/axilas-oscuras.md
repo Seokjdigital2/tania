@@ -23,7 +23,7 @@ Texto provisional. Explicación de la hiperpigmentación por fricción e irritac
 ## Rutina sugerida
 
 1. Lavado suave y secado completo.
-2. Crema Organic Beauty por la noche.
+2. Crema Beauty Organic por la noche.
 3. Constancia durante varias semanas.
 
 ## ¿Cuándo acudir al dermatólogo?

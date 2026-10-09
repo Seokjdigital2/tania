@@ -6,10 +6,11 @@ import BlushBlob from '@/components/BlushBlob.astro';
 import LeafSprig from '@/components/LeafSprig.astro';
 import { site, absoluteUrl } from '@/config/site';
 import { founderSchema, ids } from '@/lib/schema';
-import taniaImg from '@/assets/img/tania-fundadora.jpg';
+import taniaImg from '@/assets/img/tania-playa.jpg';
+import taniaUrban from '@/assets/img/tania-urbana.jpg';
 
-const title = 'Sobre Tania, fundadora de Organic Beauty';
-const description = 'Conoce a Tania, creadora de Organic Beauty en Puerto Vallarta: su historia, su propósito y por qué creó una crema para cara y cuerpo.';
+const title = 'Sobre Tania, fundadora de Beauty Organic';
+const description = 'Conoce a Tania, creadora de Beauty Organic en Puerto Vallarta: su historia, su propósito y por qué creó una crema para cara y cuerpo.';
 const schema = [
   founderSchema(),
   { '@type': 'AboutPage', '@id': absoluteUrl('/sobre-tania/#page'), name: title, mainEntity: { '@id': ids.founder } },
@@ -25,8 +26,8 @@ const schema = [
         <BlushBlob class="about-blob" />
         <Image
           src={taniaImg}
-          alt="Tania, fundadora de Organic Beauty, sonriendo y sosteniendo su crema"
-          widths={[400, 600, 941]}
+          alt="Tania, fundadora de Beauty Organic, en una playa de Puerto Vallarta sosteniendo su crema"
+          widths={[400, 600, 784]}
           sizes="(min-width: 900px) 460px, 86vw"
           loading="eager"
           fetchpriority="high"
@@ -34,15 +35,24 @@ const schema = [
       </div>
       <div class="prose">
         <span class="eyebrow">La fundadora</span>
-        <h1>Hola, soy Tania</h1>
+        <h1>Hola, <em>soy Tania</em></h1>
         <p class="lead">
           Texto provisional: una frase que resuma quién es Tania y qué la mueve.
         </p>
-        <h2>Cómo nació Organic Beauty</h2>
+        <h2>Cómo nació Beauty Organic</h2>
         <p>
           Texto provisional: aquí va la historia real de Tania. Qué problema vivió con su piel o la de alguien cercano, qué buscaba y
           no encontraba, y cómo decidió crear su propia crema en {site.location.city}.
         </p>
+        <figure class="inline-photo">
+          <Image
+            src={taniaUrban}
+            alt="Tania sosteniendo un tarro de Beauty Organic"
+            widths={[360, 560]}
+            sizes="(min-width: 900px) 320px, 70vw"
+          />
+          <figcaption>Tania con Beauty Organic</figcaption>
+        </figure>
         <h2>Mi propósito</h2>
         <p>
           Texto provisional: qué quiere lograr con la marca, qué valores la guían (honestidad, cuidado, cercanía) y qué significa
@@ -96,6 +106,23 @@ const schema = [
     width: 124%;
     height: 112%;
     z-index: -1;
+  }
+  .inline-photo {
+    margin: 40px 0;
+    max-width: 320px;
+  }
+  .inline-photo :global(img) {
+    border-radius: var(--radius);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+  }
+  figcaption {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ob-gray-500);
   }
   .prose .script {
     margin: 0;

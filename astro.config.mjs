@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Dominio definitivo: cambiar aquí y en src/config/site.ts (ver docs/TABLERO.md).
-const SITE_URL = 'https://www.organicbeauty.mx';
+const SITE_URL = 'https://www.beautyorganic.mx';
 
 export default defineConfig({
   site: SITE_URL,

@@ -20,7 +20,7 @@ Texto provisional. Explicación de la diferencia entre hiperpigmentación postin
 ## Rutina sugerida
 
 1. Limpieza suave.
-2. Crema Organic Beauty en las marcas.
+2. Crema Beauty Organic en las marcas.
 3. Protector solar por la mañana.
 
 ## ¿Cuándo acudir al dermatólogo?

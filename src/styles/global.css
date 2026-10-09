@@ -1,5 +1,5 @@
 /*
- * Sistema de diseño Organic Beauty
+ * Sistema de diseño Beauty Organic
  * Proporción visual: ~80 % blanco · ~10 % rosa · ~10 % verde hoja.
  * El texto usa ciruela (color de la tipografía del logo), nunca negro puro.
  */
@@ -31,8 +31,8 @@
   --container: 1200px;
   --gutter: clamp(20px, 4vw, 40px);
   --section-y: clamp(64px, 9vw, 112px);
-  --radius: 18px;
-  --radius-lg: 28px;
+  --radius: 14px;
+  --radius-lg: 22px;
   --shadow-soft: 0 18px 40px -24px rgb(58 31 43 / 0.25);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -90,14 +90,20 @@ h3,
 h4 {
   font-family: var(--font-serif);
   font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   margin: 0 0 0.5em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-size: clamp(2.6rem, 6.4vw, 4.75rem);
+}
+
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--ob-plum-700);
 }
 
 h2 {
@@ -137,14 +143,54 @@ p {
 }
 
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--ob-leaf-700);
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.center .eyebrow::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Precio */
+.price-tag {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin: 0 0 22px;
+}
+
+.price-tag strong {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.price-tag span {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--ob-gray-500);
 }
 
 .script {
@@ -191,13 +237,14 @@ p {
   justify-content: center;
   gap: 0.6em;
   min-height: 52px;
-  padding: 0.85em 1.6em;
-  border: 1.5px solid var(--ob-plum-900);
-  border-radius: 999px;
+  padding: 0.85em 1.8em;
+  border: 1px solid var(--ob-plum-900);
+  border-radius: 6px;
   background: var(--btn-bg);
   color: var(--btn-fg);
-  font: 500 0.95rem/1.2 var(--font-sans);
-  letter-spacing: 0.04em;
+  font: 500 0.78rem/1.2 var(--font-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -386,4 +433,17 @@ p {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+}
+
+/* Ancla con espacio para el encabezado fijo */
+[id] {
+  scroll-margin-top: 110px;
+}
+
+/* Línea fina editorial */
+.hairline {
+  height: 1px;
+  background: var(--ob-line);
+  border: 0;
+  margin: 0;
 }

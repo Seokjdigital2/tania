@@ -6,7 +6,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import { faqs } from '@/data/faq';
 
 const title = 'Preguntas frecuentes';
-const description = 'Resolvemos tus dudas sobre la crema Organic Beauty: uso, resultados, tipo de piel, compra en Mercado Libre y TikTok Shop, y entregas en Puerto Vallarta.';
+const description = 'Resolvemos tus dudas sobre la crema Beauty Organic: uso, resultados, tipo de piel, compra en Mercado Libre y TikTok Shop, y entregas en Puerto Vallarta.';
 const schema = {
   '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),

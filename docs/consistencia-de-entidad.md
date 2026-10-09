@@ -4,18 +4,18 @@ Los buscadores y las IAs (ChatGPT, Claude, Perplexity, Gemini) entienden mejor u
 
 | Campo | Texto canónico |
 |---|---|
-| Nombre de la marca | Organic Beauty |
-| Firma del logotipo | Organic Beauty · Tania |
+| Nombre de la marca | Beauty Organic |
+| Firma del logotipo | Beauty Organic · Tania |
 | Fundadora | Tania |
 | Ciudad | Puerto Vallarta, Jalisco, México |
-| Sitio web | https://www.organicbeauty.mx *(provisional)* |
+| Sitio web | https://www.beautyorganic.mx *(provisional)* |
 | Eslogan | Belleza que realza tu esencia |
 
 **Descripción corta (≤ 160 caracteres):**
 > Crema mexicana para cara y cuerpo que ayuda a atenuar la apariencia de manchas. Creada por Tania en Puerto Vallarta.
 
 **Descripción larga:**
-> Organic Beauty es una marca mexicana creada por Tania en Puerto Vallarta. Su crema para cara y cuerpo ayuda a atenuar la apariencia de manchas y a unificar visualmente el tono de la piel con uso constante. Se vende en Mercado Libre y TikTok Shop, con entrega local por motocicleta en Puerto Vallarta.
+> Beauty Organic es una marca mexicana creada por Tania en Puerto Vallarta. Su crema para cara y cuerpo ayuda a atenuar la apariencia de manchas y a unificar visualmente el tono de la piel con uso constante. Se vende en Mercado Libre y TikTok Shop, con entrega local por motocicleta en Puerto Vallarta.
 
 ## Dónde copiarlo
 

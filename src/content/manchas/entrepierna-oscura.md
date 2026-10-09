@@ -20,7 +20,7 @@ Texto provisional. Roce, depilación, sudor y cambios hormonales.
 ## Rutina sugerida
 
 1. Lavado suave.
-2. Crema Organic Beauty una vez al día.
+2. Crema Beauty Organic una vez al día.
 3. Constancia.
 
 ## ¿Cuándo acudir al dermatólogo?

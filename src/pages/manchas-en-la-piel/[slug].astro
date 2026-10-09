@@ -7,6 +7,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import LeafSprig from '@/components/LeafSprig.astro';
 import { site, absoluteUrl } from '@/config/site';
 import { ids } from '@/lib/schema';
+import { product, formatMXN } from '@/data/product';
 
 export async function getStaticPaths() {
   const articles = (await getCollection('manchas')).sort((a, b) => a.data.order - b.data.order);
@@ -86,11 +87,12 @@ if (d.faqs.length) {
 
       <aside class="aside">
         <div class="card cta">
-          <p class="eyebrow">Organic Beauty</p>
+          <p class="eyebrow">Beauty Organic</p>
           <p class="cta-title">Crema para cara y cuerpo</p>
           <p class="muted">Ayuda a atenuar la apariencia de manchas con uso constante.</p>
           <a class="link-arrow" href="/crema-desmanchadora/">Conoce la crema →</a>
-          <div class="cta-buttons"><BuyButtons placement="article" /></div>
+          {product.priceMXN && <p class="cta-price">{formatMXN(product.priceMXN)}</p>}
+          <div class="cta-buttons"><BuyButtons placement="article" class="buy--stack" /></div>
         </div>
         <nav class="card related" aria-label="Guías relacionadas">
           <p class="eyebrow">Sigue leyendo</p>
@@ -154,8 +156,10 @@ if (d.faqs.length) {
   .cta-buttons {
     margin-top: 20px;
   }
-  .cta-buttons :global(.buy-group > *) {
-    flex-basis: 100%;
+  .cta-price {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    margin: 16px 0 0;
   }
   .related ul {
     list-style: none;

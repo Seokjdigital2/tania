@@ -1,4 +1,4 @@
-# Prompt maestro — Sitio web Organic Beauty (landing + hub SEO)
+# Prompt maestro — Sitio web Beauty Organic (landing + hub SEO)
 
 > **Uso:** este prompt está diseñado para ejecutarse con **Claude Code** dentro del repositorio `tania`.
 > Antes de ejecutarlo, completa la sección **0. Brief de marca (variables)**. Todo lo que esté entre `{{ }}` es un dato que debe proporcionar Tania; el agente **nunca** debe inventarlo.
@@ -14,19 +14,19 @@
 
 ```yaml
 marca:
-  nombre_comercial: "Organic Beauty"
-  firma_logotipo: "Organic Beauty · Tania"     # cómo aparece en el logo
+  nombre_comercial: "Beauty Organic"
+  firma_logotipo: "Beauty Organic · Tania"     # cómo aparece en el logo
   fundadora: "Tania {{APELLIDO_OPCIONAL}}"
   historia_proposito: "{{2-4 párrafos: por qué nació la marca, qué problema resuelve}}"
   ciudad_base: "Puerto Vallarta, Jalisco, México"
-  dominio: "{{https://www.organicbeauty.mx}}"
+  dominio: "{{https://www.beautyorganic.mx}}"
   email_contacto: "{{correo}}"
   whatsapp: "{{+52 ...}}"                       # opcional
   google_business_profile_url: "{{url o vacío}}"
   tiene_tienda_fisica: {{true|false}}           # define si se usa LocalBusiness
 
 producto:
-  nombre: "{{Crema desmanchadora Organic Beauty}}"
+  nombre: "{{Crema desmanchadora Beauty Organic}}"
   uso: "cara y cuerpo"
   presentacion: "{{p. ej. 50 g / 100 ml}}"
   precio_mxn: {{000}}
@@ -88,7 +88,7 @@ Actúa como un **equipo senior multidisciplinario** que trabaja como una sola pe
 
 ## 2. Contexto del negocio
 
-- **Organic Beauty** es una marca mexicana de una **crema para atenuar la apariencia de manchas** en **cara y cuerpo**, fundada por **Tania**, con base en **Puerto Vallarta**.
+- **Beauty Organic** es una marca mexicana de una **crema para atenuar la apariencia de manchas** en **cara y cuerpo**, fundada por **Tania**, con base en **Puerto Vallarta**.
 - Hoy hay **un solo producto**, que ya está publicado en **Mercado Libre** y **TikTok Shop**. **El sitio no procesa pagos**: su trabajo es **educar, generar confianza y mandar a la usuaria a comprar** a uno de esos dos marketplaces. También hay **entrega local por motocicleta en Puerto Vallarta**.
 - **Flujo de negocio** (ver `docs/referencias/flujo-contenido-conversion.webp`):
   `Redes sociales (FB, IG, TikTok, LinkedIn, YouTube) → Landing / sitio → Compra (TikTok Shop o Mercado Libre) → Entrega local → Expansión nacional con distribuidores por estado`.
@@ -231,7 +231,7 @@ Galería de imágenes (WebP/AVIF), nombre, presentación, precio de referencia (
 ### 7.3 Artículos del hub
 
 - Entre 1 200 y 2 000 palabras, con la estructura: respuesta directa en las primeras 40 a 60 palabras (para snippets y LLMs), luego causas, cómo prevenir, rutina sugerida, cuándo acudir al dermatólogo, FAQ y CTA suave al producto.
-- Autoría: "Por Tania, fundadora de Organic Beauty", con fecha de publicación y de actualización. Si hay revisión de un profesional, se muestra su nombre y cédula, y nunca se inventa.
+- Autoría: "Por Tania, fundadora de Beauty Organic", con fecha de publicación y de actualización. Si hay revisión de un profesional, se muestra su nombre y cédula, y nunca se inventa.
 - Deja **plantillas y estructura**. El texto final de cada artículo se escribe con los datos del brief y queda marcado como borrador para que Tania lo revise.
 
 ### 7.4 Mapa inicial de keywords (validar con Search Console y Keyword Planner)
@@ -241,7 +241,7 @@ Galería de imágenes (WebP/AVIF), nombre, presentación, precio de referencia (
 | Transaccional | crema para manchas, crema desmanchadora, crema para manchas en la cara, crema aclaradora para axilas y entrepierna | `/`, `/crema-desmanchadora/` |
 | Informativa | cómo quitar manchas de la cara, qué causa el melasma, cómo aclarar axilas, manchas por el sol | hub |
 | Local | crema para manchas Puerto Vallarta, productos de belleza Puerto Vallarta | `/entrega-puerto-vallarta/` |
-| Marca | Organic Beauty crema, Organic Beauty Tania | todas |
+| Marca | Beauty Organic crema, Beauty Organic Tania | todas |
 
 ---
 
@@ -275,7 +275,7 @@ Galería de imágenes (WebP/AVIF), nombre, presentación, precio de referencia (
 - **`/llms.txt`** (estándar llmstxt.org): un resumen de la marca, el producto, dónde comprar, la zona de entrega y enlaces a las páginas clave en Markdown. **`/llms-full.txt`** con el contenido íntegro de la PDP, la FAQ y los artículos, generado en el build desde las colecciones.
 - `robots.txt` que permita explícitamente: `Googlebot`, `Bingbot`, `DuckDuckBot`, `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `ClaudeBot`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`, `Perplexity-User`, `Google-Extended`, `Applebot-Extended` y `CCBot`. Deja un comentario indicando qué línea cambiar si Tania decide bloquear el entrenamiento.
 - **Contenido citable:** cada página abre con una respuesta autocontenida, usa hechos concretos (presentación, precio, modo de uso, zona de entrega), H2/H3 formulados como preguntas reales, listas y tablas sencillas, y definiciones en una frase.
-- **Consistencia de entidad (NAP+):** el mismo nombre ("Organic Beauty"), fundadora ("Tania"), ciudad y descripción corta en el sitio, el schema, el `llms.txt`, las redes, Mercado Libre, TikTok Shop y Google Business Profile. Genera `docs/consistencia-de-entidad.md` con el texto canónico para copiarlo en cada plataforma.
+- **Consistencia de entidad (NAP+):** el mismo nombre ("Beauty Organic"), fundadora ("Tania"), ciudad y descripción corta en el sitio, el schema, el `llms.txt`, las redes, Mercado Libre, TikTok Shop y Google Business Profile. Genera `docs/consistencia-de-entidad.md` con el texto canónico para copiarlo en cada plataforma.
 - **HTML renderizado del lado del servidor** (SSG): todo el contenido es legible sin JavaScript.
 - Una página `/sobre-tania/` con una biografía real, que da autoridad y una entidad `Person` para el grafo.
 

@@ -3,7 +3,7 @@
 Cada enlace que se publica en redes debe llevar parámetros UTM para saber de qué red viene cada visita y cada clic en "Comprar".
 
 ```
-https://www.organicbeauty.mx/?utm_source=<red>&utm_medium=<formato>&utm_campaign=<campaña>
+https://www.beautyorganic.mx/?utm_source=<red>&utm_medium=<formato>&utm_campaign=<campaña>
 ```
 
 | Parámetro | Valores |
@@ -16,14 +16,14 @@ https://www.organicbeauty.mx/?utm_source=<red>&utm_medium=<formato>&utm_campaign
 
 | Red | Enlace |
 |---|---|
-| Instagram | `https://www.organicbeauty.mx/?utm_source=instagram&utm_medium=bio&utm_campaign=siempre` |
-| TikTok | `https://www.organicbeauty.mx/?utm_source=tiktok&utm_medium=bio&utm_campaign=siempre` |
-| Facebook | `https://www.organicbeauty.mx/?utm_source=facebook&utm_medium=bio&utm_campaign=siempre` |
-| YouTube | `https://www.organicbeauty.mx/?utm_source=youtube&utm_medium=bio&utm_campaign=siempre` |
-| LinkedIn | `https://www.organicbeauty.mx/?utm_source=linkedin&utm_medium=bio&utm_campaign=siempre` |
+| Instagram | `https://www.beautyorganic.mx/?utm_source=instagram&utm_medium=bio&utm_campaign=siempre` |
+| TikTok | `https://www.beautyorganic.mx/?utm_source=tiktok&utm_medium=bio&utm_campaign=siempre` |
+| Facebook | `https://www.beautyorganic.mx/?utm_source=facebook&utm_medium=bio&utm_campaign=siempre` |
+| YouTube | `https://www.beautyorganic.mx/?utm_source=youtube&utm_medium=bio&utm_campaign=siempre` |
+| LinkedIn | `https://www.beautyorganic.mx/?utm_source=linkedin&utm_medium=bio&utm_campaign=siempre` |
 
 Para un video que habla de un tema concreto, enlaza directo a la guía, p. ej.:
-`https://www.organicbeauty.mx/manchas-en-la-piel/axilas-oscuras/?utm_source=tiktok&utm_medium=video&utm_campaign=axilas`
+`https://www.beautyorganic.mx/manchas-en-la-piel/axilas-oscuras/?utm_source=tiktok&utm_medium=video&utm_campaign=axilas`
 
 ## Cómo se mide
 

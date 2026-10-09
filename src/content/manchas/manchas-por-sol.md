@@ -1,6 +1,6 @@
 ---
 title: 'Manchas por sol: por qué aparecen y cómo atenuarlas'
-description: 'Qué son las manchas solares, por qué salen en cara, manos y escote, y qué rutina ayuda a atenuar su apariencia. Guía de Organic Beauty.'
+description: 'Qué son las manchas solares, por qué salen en cara, manos y escote, y qué rutina ayuda a atenuar su apariencia. Guía de Beauty Organic.'
 answer: 'Las manchas por sol son acumulaciones de pigmento que la piel produce para defenderse de la radiación ultravioleta. Aparecen sobre todo en cara, manos, escote y hombros. Para atenuar su apariencia ayuda una rutina constante con productos despigmentantes cosméticos y, sobre todo, protector solar diario.'
 order: 1
 published: 2026-10-10
@@ -29,7 +29,7 @@ Texto provisional. Protector solar de amplio espectro todos los días, reaplicac
 ## Rutina sugerida
 
 1. Limpieza suave por la mañana y por la noche.
-2. Aplicación de la crema Organic Beauty en las zonas con manchas.
+2. Aplicación de la crema Beauty Organic en las zonas con manchas.
 3. Protector solar cada mañana, también en días nublados.
 
 ## ¿Cuándo acudir al dermatólogo?

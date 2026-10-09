@@ -8,7 +8,7 @@ import LeafSprig from '@/components/LeafSprig.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import ReviewCard from '@/components/ReviewCard.astro';
 import { site, absoluteUrl } from '@/config/site';
-import { product, concerns } from '@/data/product';
+import { product, concerns, formatMXN } from '@/data/product';
 import { faqs } from '@/data/faq';
 import { reviews } from '@/data/reviews';
 import { productSchema } from '@/lib/schema';
@@ -17,8 +17,8 @@ import viewsImg from '@/assets/img/crema-vistas.jpg';
 import sizeImg from '@/assets/img/crema-medidas.jpg';
 
 const gallery = [
-  { src: heroImg, alt: 'Crema Organic Beauty sobre un tocador de mármol' },
-  { src: viewsImg, alt: 'Tarro de crema Organic Beauty desde tres ángulos' },
+  { src: heroImg, alt: 'Crema Beauty Organic sobre un tocador de mármol' },
+  { src: viewsImg, alt: 'Tarro de crema Beauty Organic desde tres ángulos' },
   { src: sizeImg, alt: `Medidas del tarro: ${product.container.diameterCm} cm de diámetro y ${product.container.heightCm} cm de altura` },
 ];
 const schemaImages = await Promise.all(
@@ -26,6 +26,7 @@ const schemaImages = await Promise.all(
 );
 
 const facts = [
+  ['Precio', product.priceMXN ? `${formatMXN(product.priceMXN)} por pieza` : 'Por confirmar'],
   ['Uso', product.tagline],
   ['Contenido neto', product.netContent || 'Por confirmar'],
   ['Envase', `${product.container.description}, ${product.container.diameterCm} × ${product.container.heightCm} cm`],
@@ -36,7 +37,7 @@ const facts = [
 
 const title = 'Crema desmanchadora para cara y cuerpo';
 const description =
-  'Crema Organic Beauty para atenuar la apariencia de manchas en cara, axilas, codos, rodillas y entrepierna. Modo de uso, ingredientes y dónde comprar en Mercado Libre o TikTok Shop.';
+  'Crema Beauty Organic para atenuar la apariencia de manchas en cara, axilas, codos, rodillas y entrepierna. Modo de uso, ingredientes y dónde comprar en Mercado Libre o TikTok Shop.';
 ---
 
 <BaseLayout title={title} description={description} ogType="product" ogImage="/og/crema.jpg" schema={[productSchema(schemaImages)]}>
@@ -69,11 +70,18 @@ const description =
         <span class="eyebrow">{site.name}</span>
         <h1>{title}</h1>
         <p class="lead">{product.description}</p>
-        <p class="price">
-          {product.priceMXN ? `Desde $${product.priceMXN} MXN en Mercado Libre y TikTok Shop` : 'Precio disponible muy pronto'}
-        </p>
+        {
+          product.priceMXN ? (
+            <p class="price-tag">
+              <strong>{formatMXN(product.priceMXN)}</strong>
+              <span>por pieza · envío a todo México</span>
+            </p>
+          ) : (
+            <p class="price-tag"><span>Precio disponible muy pronto</span></p>
+          )
+        }
         <div id="comprar" data-sticky-trigger>
-          <BuyButtons placement="pdp" />
+          <BuyButtons placement="pdp" class="buy--stack" note />
         </div>
         <p class="trust"><LeafSprig size={24} /> Entrega en {site.delivery.area} · Envíos a todo México</p>
 
@@ -182,6 +190,42 @@ const description =
   .main-img {
     position: relative;
   }
+  @media (max-width: 959px) {
+    /* Móvil: foto → nombre, precio y botones → galería secundaria. */
+    .gallery {
+      display: contents;
+    }
+    .pdp-grid {
+      gap: 28px;
+    }
+    .main-img {
+      order: 1;
+    }
+    .main-img :global(img) {
+      aspect-ratio: 4 / 3 !important;
+    }
+    .info {
+      order: 2;
+      display: flex;
+      flex-direction: column;
+    }
+    /* La descripción va después de los botones para que la compra quede arriba. */
+    .info .lead {
+      order: 5;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+    .info .lead ~ :not(.price-tag):not(#comprar) {
+      order: 6;
+    }
+    .info h1 {
+      font-size: 2.2rem;
+    }
+    .thumbs {
+      order: 3;
+      margin-top: 0;
+    }
+  }
   .main-img :global(img) {
     border-radius: var(--radius-lg);
     aspect-ratio: 1;
@@ -210,11 +254,6 @@ const description =
   }
   .info h1 {
     font-size: clamp(2.3rem, 4.5vw, 3.4rem);
-  }
-  .price {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    margin-bottom: 24px;
   }
   .trust {
     display: flex;

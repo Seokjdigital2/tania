@@ -1,5 +1,5 @@
 /**
- * Fuente única de verdad del sitio Organic Beauty.
+ * Fuente única de verdad del sitio Beauty Organic.
  *
  * Todo lo marcado con `PROVISIONAL` es texto o dato de relleno que debe
  * reemplazarse con información real (ver docs/TABLERO.md).
@@ -14,20 +14,20 @@ export const site = {
    */
   prelaunch: true,
 
-  name: 'Organic Beauty',
-  signature: 'Organic Beauty · Tania',
-  legalName: 'Organic Beauty', // PROVISIONAL: razón social si existe
-  url: 'https://www.organicbeauty.mx', // PROVISIONAL: dominio definitivo (también en astro.config.mjs)
+  name: 'Beauty Organic',
+  signature: 'Beauty Organic · Tania',
+  legalName: 'Beauty Organic', // PROVISIONAL: razón social si existe
+  url: 'https://www.beautyorganic.mx', // PROVISIONAL: dominio definitivo (también en astro.config.mjs)
   locale: 'es-MX',
   tagline: 'Belleza que realza tu esencia',
   // PROVISIONAL
   description:
-    'Organic Beauty es una crema mexicana para cara y cuerpo que ayuda a atenuar la apariencia de manchas y a unificar visualmente el tono de la piel. Creada por Tania en Puerto Vallarta.',
+    'Beauty Organic es una crema mexicana para cara y cuerpo que ayuda a atenuar la apariencia de manchas y a unificar visualmente el tono de la piel. Creada por Tania en Puerto Vallarta.',
 
   founder: {
     name: 'Tania',
     fullName: 'Tania', // PROVISIONAL: apellido opcional
-    role: 'Fundadora de Organic Beauty',
+    role: 'Fundadora de Beauty Organic',
   },
 
   location: {

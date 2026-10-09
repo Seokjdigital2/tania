@@ -29,7 +29,7 @@ Texto provisional. Rutina suave, sin exfoliaciones agresivas, protector solar di
 ## Rutina sugerida
 
 1. Limpieza suave.
-2. Crema Organic Beauty en las zonas con manchas.
+2. Crema Beauty Organic en las zonas con manchas.
 3. Protector solar con color por la mañana.
 
 ## ¿Cuándo acudir al dermatólogo?

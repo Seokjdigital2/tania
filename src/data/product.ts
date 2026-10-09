@@ -4,10 +4,12 @@
  * cosmético ("ayuda a atenuar la apariencia de…").
  */
 
+export const formatMXN = (n: number) => `$${n.toLocaleString('es-MX')} MXN`;
+
 export const product = {
   slug: 'crema-desmanchadora',
-  name: 'Crema desmanchadora Organic Beauty', // PROVISIONAL
-  shortName: 'Crema Organic Beauty',
+  name: 'Crema desmanchadora Beauty Organic', // PROVISIONAL
+  shortName: 'Crema Beauty Organic',
   // PROVISIONAL
   tagline: 'Para cara y cuerpo',
   // PROVISIONAL
@@ -18,7 +20,8 @@ export const product = {
   /** Dato real tomado de la ficha técnica del envase. */
   container: { diameterCm: 8, heightCm: 6, description: 'Tarro blanco con tapa de domo' },
 
-  priceMXN: null as number | null, // PENDIENTE
+  /** Precio por pieza (confirmado por Tania). */
+  priceMXN: 450 as number | null,
   sku: '', // PENDIENTE
   gtin: '', // PENDIENTE: código de barras EAN/UPC si existe
   inci: '', // PENDIENTE: lista INCI completa

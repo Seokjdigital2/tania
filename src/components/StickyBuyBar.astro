@@ -1,23 +1,42 @@
 ---
-/** Barra fija inferior en móvil; aparece cuando el hero sale de pantalla. */
+/** Barra fija inferior en móvil; aparece cuando los botones principales salen de pantalla. */
+import { Image } from 'astro:assets';
 import BuyButtons from './BuyButtons.astro';
+import { product, formatMXN } from '@/data/product';
+import thumb from '@/assets/img/crema-tocador.jpg';
 ---
 
 <div class="sticky-buy" data-sticky-buy aria-hidden="true">
+  <div class="row">
+    <Image src={thumb} alt="" width={44} height={44} class="thumb" />
+    <p class="name">{product.shortName}</p>
+    {product.priceMXN && <p class="price">{formatMXN(product.priceMXN)}</p>}
+  </div>
   <BuyButtons placement="sticky" compact />
 </div>
 
 <script>
   const bar = document.querySelector<HTMLElement>('[data-sticky-buy]');
-  const trigger = document.querySelector('[data-sticky-trigger]');
+  const triggers = document.querySelectorAll('[data-sticky-trigger]');
   if (bar) {
-    const show = (visible: boolean) => {
-      bar.classList.toggle('is-visible', visible);
-      bar.setAttribute('aria-hidden', String(!visible));
-      bar.querySelectorAll<HTMLElement>('a,button').forEach((el) => (el.tabIndex = visible ? 0 : -1));
+    const visible = new Set<Element>();
+    let passed = false;
+    const show = (on: boolean) => {
+      bar.classList.toggle('is-visible', on);
+      bar.setAttribute('aria-hidden', String(!on));
+      bar.querySelectorAll<HTMLElement>('a,button').forEach((el) => (el.tabIndex = on ? 0 : -1));
     };
-    if (trigger) {
-      new IntersectionObserver(([e]) => show(!e.isIntersecting && e.boundingClientRect.top < 0)).observe(trigger);
+    if (triggers.length) {
+      // Se oculta mientras cualquier grupo de botones principal está en pantalla.
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) visible.add(e.target);
+          else visible.delete(e.target);
+          if (!e.isIntersecting && e.boundingClientRect.top < 0) passed = true;
+        });
+        show(passed && visible.size === 0);
+      });
+      triggers.forEach((t) => io.observe(t));
     } else {
       const onScroll = () => show(window.scrollY > 600);
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -33,17 +52,44 @@ import BuyButtons from './BuyButtons.astro';
     right: 0;
     bottom: 0;
     z-index: 30;
+    display: grid;
+    gap: 8px;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-    background: rgb(255 255 255 / 0.96);
+    background: rgb(255 255 255 / 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--ob-line);
-    box-shadow: 0 -10px 30px -20px rgb(58 31 43 / 0.35);
+    box-shadow: 0 -12px 32px -22px rgb(58 31 43 / 0.45);
     transform: translateY(110%);
-    transition: transform 0.25s var(--ease);
+    transition: transform 0.3s var(--ease);
   }
   .sticky-buy:global(.is-visible) {
     transform: none;
   }
-  @media (min-width: 900px) {
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .row :global(.thumb) {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  .name {
+    flex: 1;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.1;
+  }
+  .price {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  @media (min-width: 1000px) {
     .sticky-buy {
       display: none;
     }

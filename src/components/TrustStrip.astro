@@ -1,0 +1,95 @@
+---
+/** Franja de confianza con cuatro garantías breves. */
+import { site } from '@/config/site';
+
+const items = [
+  { title: 'Hecha en México', text: `Creada en ${site.location.city}`, icon: 'leaf' },
+  { title: 'Cara y cuerpo', text: 'Una sola crema', icon: 'drop' },
+  { title: 'Envíos a todo México', text: 'Mercado Libre y TikTok Shop', icon: 'box' },
+  { title: 'Entrega local', text: `Motocicleta en ${site.location.city}`, icon: 'pin' },
+] as const;
+
+const paths: Record<string, string> = {
+  leaf: 'M5 19c0-8 5-13 14-14-1 9-6 14-14 14Zm0 0 7-7',
+  drop: 'M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z',
+  box: 'M3 8l9-5 9 5v8l-9 5-9-5V8Zm0 0 9 5 9-5M12 13v8',
+  pin: 'M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Zm0-9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
+};
+---
+
+<section class="trust" aria-label="Por qué elegir Beauty Organic">
+  <ul class="container">
+    {
+      items.map((i) => (
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
+            <path d={paths[i.icon]} />
+          </svg>
+          <span>
+            <strong>{i.title}</strong>
+            <small>{i.text}</small>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .trust {
+    border-block: 1px solid var(--ob-line);
+  }
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    margin: 0 auto;
+    padding-block: 0;
+  }
+  @media (min-width: 900px) {
+    ul {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 12px;
+  }
+  @media (min-width: 900px) {
+    li {
+      justify-content: center;
+    }
+    li + li {
+      border-left: 1px solid var(--ob-line);
+    }
+  }
+  @media (max-width: 899px) {
+    li:nth-child(even) {
+      border-left: 1px solid var(--ob-line);
+      padding-left: 16px;
+    }
+    li:nth-child(n + 3) {
+      border-top: 1px solid var(--ob-line);
+    }
+  }
+  svg {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    color: var(--ob-leaf-700);
+  }
+  span {
+    display: grid;
+    line-height: 1.3;
+  }
+  strong {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  small {
+    font-size: 0.78rem;
+    color: var(--ob-gray-500);
+  }
+</style>
