@@ -1,0 +1,144 @@
+---
+import '@/styles/global.css';
+import { site, absoluteUrl } from '@/config/site';
+import { graph, organizationSchema, websiteSchema } from '@/lib/schema';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import StickyBuyBar from '@/components/StickyBuyBar.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import Analytics from '@/components/Analytics.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Imagen Open Graph 1200×630 dentro de /public. */
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+  /** Nodos JSON-LD propios de la página (se agregan al grafo global). */
+  schema?: object[];
+  stickyBuy?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og/organic-beauty.jpg',
+  ogType = 'website',
+  noindex = false,
+  schema = [],
+  stickyBuy = true,
+} = Astro.props;
+
+const canonical = absoluteUrl(Astro.url.pathname);
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const robots = site.prelaunch || noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1';
+const ogImageUrl = absoluteUrl(ogImage);
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    <link rel="alternate" hreflang="es-MX" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+
+    <meta property="og:type" content={ogType === 'product' ? 'product' : ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    {site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+    {site.verification.bing && <meta name="msvalidate.01" content={site.verification.bing} />}
+
+    <JsonLd data={graph(organizationSchema(), websiteSchema(), ...schema)} />
+
+    <script is:inline>
+      // Detecta navegadores internos de apps para priorizar el botón correcto.
+      (function () {
+        var ua = navigator.userAgent || '';
+        var d = document.documentElement;
+        if (/TikTok|musical_ly|Bytedance/i.test(ua)) d.dataset.inapp = 'tiktok';
+        else if (/Instagram/i.test(ua)) d.dataset.inapp = 'instagram';
+        else if (/FBAN|FBAV/i.test(ua)) d.dataset.inapp = 'facebook';
+        // Guarda la fuente de campaña (primer toque de la sesión).
+        try {
+          var p = new URLSearchParams(location.search);
+          ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
+            if (p.get(k) && !sessionStorage.getItem(k)) sessionStorage.setItem(k, p.get(k));
+          });
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    {
+      site.prelaunch && (
+        <div class="prelaunch" role="note">
+          Sitio en construcción · textos e imágenes provisionales
+        </div>
+      )
+    }
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+    {stickyBuy && <StickyBuyBar />}
+    <Analytics />
+
+    <script>
+      // Animaciones de entrada discretas.
+      const els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) =>
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            }),
+          { rootMargin: '0px 0px -10% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .prelaunch {
+    background: var(--ob-blush-100);
+    color: var(--ob-plum-700);
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+  }
+</style>

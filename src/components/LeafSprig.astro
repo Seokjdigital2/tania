@@ -1,0 +1,26 @@
+---
+/** Ramita de hojas inspirada en el logotipo. Decorativa (aria-hidden). */
+interface Props {
+  class?: string;
+  size?: number;
+  flip?: boolean;
+}
+const { class: className = '', size = 64, flip = false } = Astro.props;
+---
+
+<svg
+  class:list={['leaf-sprig', className]}
+  width={size}
+  height={size * 0.62}
+  viewBox="0 0 100 62"
+  aria-hidden="true"
+  focusable="false"
+  style={flip ? 'transform: scaleX(-1)' : undefined}
+>
+  <path d="M4 52 C 30 44, 58 34, 96 14" fill="none" stroke="var(--ob-leaf-700)" stroke-width="1.6" stroke-linecap="round" opacity=".55"></path>
+  <path d="M60 32 C 64 14, 80 4, 98 4 C 94 20, 80 32, 60 32 Z" fill="var(--ob-leaf-500)"></path>
+  <path d="M60 32 C 72 22, 84 12, 98 4" fill="none" stroke="var(--ob-leaf-700)" stroke-width="1" opacity=".5"></path>
+  <path d="M34 42 C 30 24, 40 10, 56 6 C 60 22, 52 36, 34 42 Z" fill="var(--ob-leaf-300)"></path>
+  <path d="M34 42 C 42 30, 50 18, 56 6" fill="none" stroke="var(--ob-leaf-700)" stroke-width="1" opacity=".45"></path>
+  <path d="M30 46 C 18 58, 4 60, -2 58 C 6 46, 18 42, 30 46 Z" fill="var(--ob-leaf-500)" opacity=".9"></path>
+</svg>

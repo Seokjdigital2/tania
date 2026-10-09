@@ -1,0 +1,498 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BuyButtons from '@/components/BuyButtons.astro';
+import BlushBlob from '@/components/BlushBlob.astro';
+import LeafSprig from '@/components/LeafSprig.astro';
+import LeafDivider from '@/components/LeafDivider.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ReviewCard from '@/components/ReviewCard.astro';
+import { site } from '@/config/site';
+import { product, concerns } from '@/data/product';
+import { faqs } from '@/data/faq';
+import { reviews } from '@/data/reviews';
+import heroImg from '@/assets/img/crema-tocador.jpg';
+import viewsImg from '@/assets/img/crema-vistas.jpg';
+import taniaImg from '@/assets/img/tania-fundadora.jpg';
+
+// TEXTOS PROVISIONALES: reemplazar con copy final (ver docs/TABLERO.md).
+const title = 'Crema para manchas en cara y cuerpo';
+const description =
+  'Organic Beauty: crema mexicana que ayuda a atenuar la apariencia de manchas en cara, axilas, codos y rodillas. Creada por Tania en Puerto Vallarta. Compra en Mercado Libre o TikTok Shop.';
+---
+
+<BaseLayout title={`${site.name} · ${title}`} description={description}>
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Hecha en Puerto Vallarta</span>
+        <h1>{title}</h1>
+        <p class="lead">
+          Una piel de tono más uniforme y luminoso, con una sola crema de uso diario. Fórmula de cuidado cosmético creada por
+          Tania.
+        </p>
+        <div id="comprar" data-sticky-trigger>
+          <BuyButtons placement="hero" />
+        </div>
+        <p class="trust">
+          <LeafSprig size={26} />
+          Entrega en {site.delivery.area} · Envíos a todo México
+        </p>
+      </div>
+
+      <div class="hero-media">
+        <BlushBlob class="hero-blob" />
+        <LeafSprig class="hero-leaf hero-leaf--a" size={120} />
+        <LeafSprig class="hero-leaf hero-leaf--b" size={84} flip />
+        <div class="arch">
+          <Image
+            src={heroImg}
+            alt="Tarro blanco de crema Organic Beauty sobre un tocador de mármol con flores rosas"
+            widths={[420, 640, 900, 1254]}
+            sizes="(min-width: 1024px) 520px, 90vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. El problema: tipos de manchas -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Tu piel, tu historia</span>
+        <h2>¿Qué manchas te preocupan?</h2>
+        <p class="lead">Cada mancha tiene una causa distinta. Conócela para cuidarla mejor.</p>
+      </div>
+      <div class="grid grid--4">
+        {
+          concerns.map((c) => (
+            <a class="concern reveal" href={`/manchas-en-la-piel/${c.slug}/`}>
+              <LeafSprig size={40} />
+              <h3>{c.title}</h3>
+              <p class="muted">{c.text}</p>
+              <span class="link-arrow">Leer guía →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Beneficios -->
+  <section class="section section--ivory">
+    <div class="container split">
+      <div class="reveal">
+        <span class="eyebrow">Beneficios</span>
+        <h2>Cuidado real para una piel más luminosa</h2>
+        <p class="lead">{product.description}</p>
+        <a class="link-arrow" href="/crema-desmanchadora/">Conoce la crema →</a>
+      </div>
+      <ul class="benefits">
+        {
+          product.benefits.map((b) => (
+            <li class="reveal">
+              <span class="check" aria-hidden="true" />
+              <div>
+                <h3>{b.title}</h3>
+                <p class="muted">{b.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Producto + ingredientes -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">La fórmula</span>
+        <h2>Ingredientes que cuidan tu piel</h2>
+      </div>
+      <Image
+        class="views reveal"
+        src={viewsImg}
+        alt="Tarro de crema Organic Beauty visto de frente, desde arriba y de lado"
+        widths={[600, 900, 1230]}
+        sizes="(min-width: 1200px) 1100px, 92vw"
+      />
+      <div class="grid grid--3 ingredients">
+        {
+          product.keyIngredients.map((i, n) => (
+            <div class="reveal">
+              <span class="num">0{n + 1}</span>
+              <h3>{i.name}</h3>
+              <p class="muted">{i.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LeafDivider />
+
+  <!-- 5. Modo de uso -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Modo de uso</span>
+        <h2>Tres pasos, todos los días</h2>
+      </div>
+      <ol class="steps grid grid--3">
+        {
+          product.howToUse.map((s, n) => (
+            <li class="card reveal">
+              <span class="step-n">{n + 1}</span>
+              <h3>{s.title}</h3>
+              <p class="muted">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. Antes y después: espacio reservado hasta tener fotos reales con consentimiento -->
+  <section class="section section--blush">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Resultados reales</span>
+        <h2>Antes y después</h2>
+        <p class="lead">Aquí mostraremos fotos reales de clientas, con su permiso. Resultados individuales; pueden variar.</p>
+      </div>
+      <div class="grid grid--3">
+        {
+          [1, 2, 3].map((n) => (
+            <div class="ba-placeholder reveal" role="img" aria-label={`Espacio reservado para foto de antes y después ${n}`}>
+              <span>Antes</span>
+              <span>Después</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Reseñas -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Opiniones</span>
+        <h2>Lo que dicen nuestras clientas</h2>
+      </div>
+      <div class="grid grid--3">
+        {reviews.slice(0, 3).map((r) => <div class="reveal"><ReviewCard review={r} /></div>)}
+      </div>
+      <p class="center more"><a class="link-arrow" href="/resenas/">Ver todas las reseñas →</a></p>
+    </div>
+  </section>
+
+  <!-- 8. Conoce a Tania -->
+  <section class="section section--ivory">
+    <div class="container split split--media">
+      <div class="founder-media reveal">
+        <Image
+          src={taniaImg}
+          alt="Tania, fundadora de Organic Beauty, sosteniendo un tarro de la crema"
+          widths={[360, 540, 760]}
+          sizes="(min-width: 900px) 420px, 80vw"
+        />
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Conoce a la fundadora</span>
+        <h2>Hola, soy Tania</h2>
+        <p class="lead">
+          Texto provisional: aquí Tania cuenta en dos o tres líneas por qué creó Organic Beauty y qué la hace diferente.
+        </p>
+        <p class="script">Belleza que realza tu esencia</p>
+        <a class="link-arrow" href="/sobre-tania/">Lee mi historia →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Preguntas frecuentes -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Dudas</span>
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <FaqAccordion items={faqs.slice(0, 6)} />
+      <p class="center more"><a class="link-arrow" href="/preguntas-frecuentes/">Ver todas las preguntas →</a></p>
+    </div>
+  </section>
+
+  <!-- 10. CTA final -->
+  <section class="section final">
+    <div class="container narrow center">
+      <BlushBlob class="final-blob" />
+      <div class="final-inner reveal">
+        <LeafSprig size={56} />
+        <h2>Empieza hoy tu rutina</h2>
+        <p class="lead">Compra en tu tienda favorita, con envíos a todo México.</p>
+        <BuyButtons placement="final" />
+        <p class="muted local">
+          ¿Estás en {site.delivery.area}? <a href="/entrega-puerto-vallarta/">Conoce la entrega local por motocicleta</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-block: clamp(32px, 6vw, 88px) clamp(56px, 8vw, 112px);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 1fr;
+    }
+  }
+  .hero h1 {
+    max-width: 12ch;
+  }
+  .hero .lead {
+    margin-bottom: 32px;
+  }
+  .trust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 0.88rem;
+    color: var(--ob-gray-500);
+  }
+  .hero-media {
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+    justify-self: center;
+  }
+  .hero-media :global(.hero-blob) {
+    position: absolute;
+    inset: -8% -14% -6% -10%;
+    width: 124%;
+    height: 114%;
+    z-index: -1;
+  }
+  .hero-media :global(.hero-leaf) {
+    position: absolute;
+    z-index: 2;
+  }
+  .hero-media :global(.hero-leaf--a) {
+    top: 6%;
+    left: -12%;
+    transform: rotate(-18deg);
+  }
+  .hero-media :global(.hero-leaf--b) {
+    bottom: 8%;
+    right: -8%;
+  }
+  .arch {
+    border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    aspect-ratio: 4 / 5;
+  }
+  .arch :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Tipos de manchas */
+  .concern {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 32px 28px;
+    border: 1px solid var(--ob-line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      transform 0.2s var(--ease);
+  }
+  .concern:hover {
+    border-color: var(--ob-blush-500);
+    transform: translateY(-2px);
+  }
+  .concern h3 {
+    margin: 12px 0 0;
+  }
+  .concern p {
+    flex: 1;
+  }
+  .concern .link-arrow {
+    align-self: flex-start;
+  }
+
+  /* Bloques divididos */
+  .split {
+    display: grid;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+    }
+    .split--media {
+      grid-template-columns: 0.85fr 1fr;
+    }
+  }
+  .benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 28px;
+  }
+  .benefits li {
+    display: flex;
+    gap: 18px;
+  }
+  .benefits h3 {
+    margin-bottom: 4px;
+  }
+  .benefits p {
+    margin: 0;
+  }
+  .check {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: var(--ob-blush-100);
+    position: relative;
+  }
+  .check::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 6px;
+    width: 7px;
+    height: 12px;
+    border: solid var(--ob-leaf-700);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  /* Ingredientes */
+  .views {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto clamp(40px, 6vw, 72px);
+  }
+  .ingredients {
+    text-align: center;
+  }
+  .num {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--ob-leaf-700);
+  }
+
+  /* Pasos */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .step-n {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    border: 1px solid var(--ob-blush-500);
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+  }
+
+  /* Antes y después */
+  .ba-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px dashed var(--ob-blush-500);
+    background: var(--ob-white);
+  }
+  .ba-placeholder span {
+    display: grid;
+    place-items: end center;
+    padding-bottom: 14px;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ob-gray-500);
+  }
+  .ba-placeholder span + span {
+    border-left: 1px dashed var(--ob-blush-300);
+  }
+
+  .more {
+    margin-top: 40px;
+  }
+
+  /* Fundadora */
+  .founder-media {
+    max-width: 420px;
+    justify-self: center;
+  }
+  .founder-media :global(img) {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: top;
+  }
+  .split .script {
+    margin: 8px 0 24px;
+  }
+
+  /* CTA final */
+  .final {
+    position: relative;
+    overflow: hidden;
+  }
+  .final .container {
+    position: relative;
+  }
+  .final :global(.final-blob) {
+    position: absolute;
+    inset: -20% -10%;
+    width: 120%;
+    height: 140%;
+    opacity: 0.55;
+    z-index: -1;
+  }
+  .final-inner {
+    display: grid;
+    justify-items: center;
+  }
+  .final-inner :global(.buy-group) {
+    width: 100%;
+    max-width: 560px;
+  }
+  .local {
+    margin-top: 20px;
+    font-size: 0.92rem;
+  }
+</style>

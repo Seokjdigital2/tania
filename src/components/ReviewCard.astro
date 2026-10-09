@@ -1,0 +1,61 @@
+---
+import type { Review } from '@/data/reviews';
+
+interface Props {
+  review: Review;
+}
+const { review } = Astro.props;
+---
+
+<figure class="card review">
+  <div class="stars" aria-label={`${review.rating} de 5 estrellas`}>
+    {'★★★★★'.slice(0, review.rating)}<span class="off">{'★★★★★'.slice(review.rating)}</span>
+  </div>
+  <blockquote>
+    <p>{review.text}</p>
+  </blockquote>
+  <figcaption>
+    <strong>{review.author}</strong>{review.city && <span> · {review.city}</span>}
+    <span class="source">{review.example ? 'Reseña de ejemplo' : `Vía ${review.source}`}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .review {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100%;
+  }
+  .stars {
+    color: var(--ob-blush-500);
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+  .off {
+    color: var(--ob-line);
+  }
+  blockquote {
+    margin: 0 0 20px;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.45;
+    flex: 1;
+  }
+  figcaption {
+    font-size: 0.9rem;
+    color: var(--ob-gray-500);
+  }
+  strong {
+    color: var(--ob-plum-900);
+    font-weight: 500;
+  }
+  .source {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ob-leaf-700);
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+/** Barra fija inferior en móvil; aparece cuando el hero sale de pantalla. */
+import BuyButtons from './BuyButtons.astro';
+---
+
+<div class="sticky-buy" data-sticky-buy aria-hidden="true">
+  <BuyButtons placement="sticky" compact />
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-buy]');
+  const trigger = document.querySelector('[data-sticky-trigger]');
+  if (bar) {
+    const show = (visible: boolean) => {
+      bar.classList.toggle('is-visible', visible);
+      bar.setAttribute('aria-hidden', String(!visible));
+      bar.querySelectorAll<HTMLElement>('a,button').forEach((el) => (el.tabIndex = visible ? 0 : -1));
+    };
+    if (trigger) {
+      new IntersectionObserver(([e]) => show(!e.isIntersecting && e.boundingClientRect.top < 0)).observe(trigger);
+    } else {
+      const onScroll = () => show(window.scrollY > 600);
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+    show(false);
+  }
+</script>
+
+<style>
+  .sticky-buy {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / 0.96);
+    border-top: 1px solid var(--ob-line);
+    box-shadow: 0 -10px 30px -20px rgb(58 31 43 / 0.35);
+    transform: translateY(110%);
+    transition: transform 0.25s var(--ease);
+  }
+  .sticky-buy:global(.is-visible) {
+    transform: none;
+  }
+  @media (min-width: 900px) {
+    .sticky-buy {
+      display: none;
+    }
+  }
+</style>

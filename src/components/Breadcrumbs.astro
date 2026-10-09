@@ -1,0 +1,59 @@
+---
+import { absoluteUrl } from '@/config/site';
+import JsonLd from './JsonLd.astro';
+
+interface Props {
+  items: { name: string; href: string }[];
+}
+const crumbs = [{ name: 'Inicio', href: '/' }, ...Astro.props.items];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: absoluteUrl(c.href),
+  })),
+};
+---
+
+<nav class="crumbs container" aria-label="Ruta de navegación">
+  <ol>
+    {
+      crumbs.map((c, i) => (
+        <li>
+          {i < crumbs.length - 1 ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<JsonLd data={schema} />
+
+<style>
+  .crumbs {
+    padding-top: 24px;
+    font-size: 0.82rem;
+    color: var(--ob-gray-500);
+  }
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li + li::before {
+    content: '/';
+    margin-right: 6px;
+    color: var(--ob-blush-500);
+  }
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

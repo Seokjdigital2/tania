@@ -1,0 +1,184 @@
+---
+import { Image } from 'astro:assets';
+import { nav, site } from '@/config/site';
+import logo from '@/assets/img/logo-wordmark.png';
+
+const path = Astro.url.pathname;
+---
+
+<header class="site-header" data-header>
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${site.name}, inicio`}>
+      <Image src={logo} alt={site.signature} width={92} height={72} loading="eager" fetchpriority="high" />
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      <ul id="menu" data-menu>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="menu-extra"><a href="/entrega-puerto-vallarta/">Entrega en Puerto Vallarta</a></li>
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a class="btn buy-cta" href="/crema-desmanchadora/#comprar">Comprar</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="sr-only">Abrir menú</span>
+        <span class="bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    header?.classList.toggle('is-open', !open);
+    document.body.style.overflow = open ? '' : 'hidden';
+  });
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgb(255 255 255 / 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .site-header:global(.is-scrolled) {
+    border-bottom-color: var(--ob-line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 84px;
+  }
+  .brand img {
+    width: 92px;
+    height: auto;
+  }
+  .nav ul {
+    display: flex;
+    gap: clamp(20px, 3vw, 40px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav a {
+    font-size: 0.82rem;
+    font-weight: 450;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-block: 6px;
+    border-bottom: 1px solid transparent;
+  }
+  .nav a:hover,
+  .nav a[aria-current='page'] {
+    border-bottom-color: var(--ob-blush-500);
+  }
+  .menu-extra {
+    display: none;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .buy-cta {
+    min-height: 44px;
+    padding: 0.6em 1.4em;
+    font-size: 0.85rem;
+  }
+  .menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .bars {
+    display: grid;
+    gap: 7px;
+    width: 24px;
+    margin: auto;
+  }
+  .bars span {
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.2s var(--ease);
+  }
+  .site-header:global(.is-open) .bars span:first-child {
+    transform: translateY(4.25px) rotate(45deg);
+  }
+  .site-header:global(.is-open) .bars span:last-child {
+    transform: translateY(-4.25px) rotate(-45deg);
+  }
+
+  @media (max-width: 899px) {
+    .bar {
+      min-height: 72px;
+    }
+    .brand img {
+      width: 76px;
+    }
+    .menu-toggle {
+      display: block;
+    }
+    .nav {
+      position: fixed;
+      inset: 72px 0 0;
+      background: var(--ob-white);
+      padding: 32px var(--gutter);
+      visibility: hidden;
+      opacity: 0;
+      transition:
+        opacity 0.2s var(--ease),
+        visibility 0.2s;
+    }
+    .site-header:global(.is-open) .nav {
+      visibility: visible;
+      opacity: 1;
+    }
+    .nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav li {
+      border-bottom: 1px solid var(--ob-line);
+    }
+    .nav a {
+      display: block;
+      padding-block: 18px;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      letter-spacing: 0;
+      text-transform: none;
+      border: 0;
+    }
+    .menu-extra {
+      display: block;
+    }
+  }
+</style>

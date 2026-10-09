@@ -1,0 +1,24 @@
+---
+import LeafSprig from './LeafSprig.astro';
+---
+
+<div class="leaf-divider" role="presentation">
+  <span></span>
+  <LeafSprig size={44} />
+  <span></span>
+</div>
+
+<style>
+  .leaf-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding-block: 8px;
+  }
+  span {
+    height: 1px;
+    width: min(120px, 20vw);
+    background: var(--ob-line);
+  }
+</style>

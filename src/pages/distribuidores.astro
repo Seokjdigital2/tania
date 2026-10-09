@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageIntro from '@/components/PageIntro.astro';
+import { site } from '@/config/site';
+
+// Fase 5 (escalamiento). Queda con noindex y fuera del sitemap hasta activarla.
+const title = 'Distribuidores Organic Beauty';
+const description = 'Programa de distribuidores de Organic Beauty por estado de la República Mexicana.';
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <Breadcrumbs items={[{ name: 'Distribuidores', href: '/distribuidores/' }]} />
+  <PageIntro
+    eyebrow="Muy pronto"
+    title="Sé distribuidora en tu estado"
+    lead="Texto provisional: una vez validado el modelo en Puerto Vallarta, buscaremos distribuidoras en otros estados de la República."
+  >
+    {site.contact.email && <p><a class="btn" href={`mailto:${site.contact.email}?subject=Distribuidores`}>Quiero más información</a></p>}
+  </PageIntro>
+</BaseLayout>

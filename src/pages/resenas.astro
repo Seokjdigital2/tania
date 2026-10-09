@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageIntro from '@/components/PageIntro.astro';
+import ReviewCard from '@/components/ReviewCard.astro';
+import BuyButtons from '@/components/BuyButtons.astro';
+import { reviews } from '@/data/reviews';
+
+const title = 'Reseñas de clientas';
+const description = 'Opiniones reales de clientas de Organic Beauty en Mercado Libre, TikTok Shop y Google.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Breadcrumbs items={[{ name: 'Reseñas', href: '/resenas/' }]} />
+  <PageIntro
+    eyebrow="Opiniones"
+    title={title}
+    lead="Aquí reuniremos reseñas reales de Mercado Libre, TikTok Shop y Google, publicadas con permiso de cada clienta."
+  />
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="grid grid--3">{reviews.map((r) => <ReviewCard review={r} />)}</div>
+      <div class="narrow center" style="margin:64px auto 0">
+        <BuyButtons placement="final" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

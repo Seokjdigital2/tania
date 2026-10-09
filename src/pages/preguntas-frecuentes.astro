@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageIntro from '@/components/PageIntro.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import { faqs } from '@/data/faq';
+
+const title = 'Preguntas frecuentes';
+const description = 'Resolvemos tus dudas sobre la crema Organic Beauty: uso, resultados, tipo de piel, compra en Mercado Libre y TikTok Shop, y entregas en Puerto Vallarta.';
+const schema = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[schema]}>
+  <Breadcrumbs items={[{ name: title, href: '/preguntas-frecuentes/' }]} />
+  <PageIntro eyebrow="Dudas" title={title} lead="Todo lo que necesitas saber antes de comprar." />
+  <section class="section" style="padding-top:0">
+    <div class="container narrow">
+      <FaqAccordion items={faqs} />
+    </div>
+  </section>
+</BaseLayout>

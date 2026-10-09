@@ -1,0 +1,133 @@
+---
+/**
+ * Analítica con consentimiento (LFPDPPP).
+ * - Si no hay IDs configurados en site.analytics, no se carga nada ni se muestra el aviso.
+ * - Los píxeles solo se cargan después de que la visitante acepta.
+ * - Cada clic de compra genera el evento `click_buy` con plataforma, ubicación y utm_source.
+ */
+import { site } from '@/config/site';
+
+const { ga4, metaPixel, tiktokPixel } = site.analytics;
+const enabled = Boolean(ga4 || metaPixel || tiktokPixel);
+---
+
+{
+  enabled && (
+    <div class="consent" data-consent hidden>
+      <p>
+        Usamos cookies para medir visitas y mejorar tu experiencia. <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
+      </p>
+      <div>
+        <button class="btn btn--outline" type="button" data-consent-reject>
+          Rechazar
+        </button>
+        <button class="btn" type="button" data-consent-accept>
+          Aceptar
+        </button>
+      </div>
+    </div>
+  )
+}
+
+<script is:inline define:vars={{ ga4, metaPixel, tiktokPixel, enabled }}>
+  (function () {
+    var KEY = 'ob-consent';
+    function read() {
+      try { return localStorage.getItem(KEY); } catch (e) { return null; }
+    }
+    function save(v) {
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+    }
+    function load() {
+      if (ga4) {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', ga4);
+      }
+      if (metaPixel) {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', metaPixel);
+        fbq('track', 'PageView');
+      }
+      if (tiktokPixel) {
+        !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.load=function(e){var n="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{};ttq._i[e]=[];ttq._u=n;var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=n+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load(tiktokPixel);ttq.page();}(window,document,'ttq');
+      }
+    }
+
+    if (enabled) {
+      var c = read();
+      var banner = document.querySelector('[data-consent]');
+      if (c === 'yes') load();
+      else if (!c && banner) {
+        banner.hidden = false;
+        banner.querySelector('[data-consent-accept]').addEventListener('click', function () {
+          save('yes'); banner.hidden = true; load();
+        });
+        banner.querySelector('[data-consent-reject]').addEventListener('click', function () {
+          save('no'); banner.hidden = true;
+        });
+      }
+    }
+
+    // Evento de clic en botones de compra.
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('[data-buy]');
+      if (!a) return;
+      var data = {
+        platform: a.dataset.buy,
+        placement: a.dataset.placement,
+        utm_source: (function () { try { return sessionStorage.getItem('utm_source') || '(direct)'; } catch (e) { return '(direct)'; } })()
+      };
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: 'click_buy' }, data));
+      if (window.gtag) gtag('event', 'click_buy', Object.assign({ transport_type: 'beacon' }, data));
+      if (window.fbq) fbq('trackCustom', 'ClickBuy', data);
+      if (window.ttq) ttq.track('ClickButton', { content_name: data.platform });
+    });
+  })();
+</script>
+
+<style>
+  .consent {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    z-index: 50;
+    max-width: 560px;
+    margin-inline: auto;
+    display: grid;
+    gap: 12px;
+    padding: 18px 20px;
+    background: var(--ob-white);
+    border: 1px solid var(--ob-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.9rem;
+  }
+  .consent[hidden] {
+    display: none;
+  }
+  .consent p {
+    margin: 0;
+  }
+  .consent div {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .consent .btn {
+    min-height: 44px;
+    padding: 0.5em 1.2em;
+  }
+  @media (min-width: 900px) {
+    .consent {
+      bottom: 20px;
+    }
+  }
+</style>

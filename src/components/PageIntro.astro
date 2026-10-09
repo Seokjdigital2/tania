@@ -1,0 +1,29 @@
+---
+import LeafSprig from './LeafSprig.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<section class="section intro">
+  <div class="container narrow center">
+    <LeafSprig size={56} />
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-bottom: 40px;
+  }
+  .intro :global(.leaf-sprig) {
+    margin: 0 auto 16px;
+  }
+</style>

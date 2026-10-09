@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageIntro from '@/components/PageIntro.astro';
+import BuyButtons from '@/components/BuyButtons.astro';
+import { site, absoluteUrl } from '@/config/site';
+import { ids } from '@/lib/schema';
+
+const title = 'Crema para manchas con entrega en Puerto Vallarta';
+const description = 'Recibe tu crema Organic Beauty en Puerto Vallarta con entrega por motocicleta. Zonas, tiempos y cómo pedir.';
+const schema = {
+  '@type': 'Service',
+  '@id': absoluteUrl('/entrega-puerto-vallarta/#service'),
+  name: 'Entrega local de Organic Beauty en Puerto Vallarta',
+  serviceType: 'Entrega a domicilio',
+  provider: { '@id': ids.organization },
+  areaServed: { '@type': 'City', name: 'Puerto Vallarta' },
+};
+const items = [
+  ['Zona', `${site.delivery.area} (colonias por confirmar)`],
+  ['Método', site.delivery.method],
+  ['Tiempo', site.delivery.time],
+  ['Costo', site.delivery.cost],
+];
+---
+
+<BaseLayout title={title} description={description} schema={[schema]}>
+  <Breadcrumbs items={[{ name: 'Entrega en Puerto Vallarta', href: '/entrega-puerto-vallarta/' }]} />
+  <PageIntro
+    eyebrow="Entrega local"
+    title="Llevamos belleza hasta tu puerta"
+    lead={`Si estás en ${site.delivery.area}, te entregamos tu crema por motocicleta. Atención ágil y rápida.`}
+  />
+  <section class="section" style="padding-top:0">
+    <div class="container narrow">
+      <dl class="grid grid--2 facts">
+        {
+          items.map(([k, v]) => (
+            <div class="card">
+              <dt class="eyebrow">{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <div class="prose" style="margin:56px auto 0">
+        <h2>¿Cómo pedir?</h2>
+        <ol>
+          <li>Texto provisional: compra en Mercado Libre o TikTok Shop eligiendo entrega local, o escríbenos por WhatsApp.</li>
+          <li>Confirmamos tu dirección y horario.</li>
+          <li>Recibe tu crema en la puerta de tu casa.</li>
+        </ol>
+        <h2>¿Fuera de Puerto Vallarta?</h2>
+        <p>{site.delivery.nationwide}.</p>
+      </div>
+      <div style="margin-top:40px"><BuyButtons placement="final" /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .facts {
+    margin: 0;
+  }
+  dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  dt {
+    margin-bottom: 8px;
+  }
+</style>

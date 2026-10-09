@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BlushBlob from '@/components/BlushBlob.astro';
+import LeafSprig from '@/components/LeafSprig.astro';
+import { site, absoluteUrl } from '@/config/site';
+import { founderSchema, ids } from '@/lib/schema';
+import taniaImg from '@/assets/img/tania-fundadora.jpg';
+
+const title = 'Sobre Tania, fundadora de Organic Beauty';
+const description = 'Conoce a Tania, creadora de Organic Beauty en Puerto Vallarta: su historia, su propósito y por qué creó una crema para cara y cuerpo.';
+const schema = [
+  founderSchema(),
+  { '@type': 'AboutPage', '@id': absoluteUrl('/sobre-tania/#page'), name: title, mainEntity: { '@id': ids.founder } },
+];
+---
+
+<BaseLayout title={title} description={description} ogImage="/og/tania.jpg" schema={schema}>
+  <Breadcrumbs items={[{ name: 'Sobre Tania', href: '/sobre-tania/' }]} />
+
+  <section class="section">
+    <div class="container about">
+      <div class="media">
+        <BlushBlob class="about-blob" />
+        <Image
+          src={taniaImg}
+          alt="Tania, fundadora de Organic Beauty, sonriendo y sosteniendo su crema"
+          widths={[400, 600, 941]}
+          sizes="(min-width: 900px) 460px, 86vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="prose">
+        <span class="eyebrow">La fundadora</span>
+        <h1>Hola, soy Tania</h1>
+        <p class="lead">
+          Texto provisional: una frase que resuma quién es Tania y qué la mueve.
+        </p>
+        <h2>Cómo nació Organic Beauty</h2>
+        <p>
+          Texto provisional: aquí va la historia real de Tania. Qué problema vivió con su piel o la de alguien cercano, qué buscaba y
+          no encontraba, y cómo decidió crear su propia crema en {site.location.city}.
+        </p>
+        <h2>Mi propósito</h2>
+        <p>
+          Texto provisional: qué quiere lograr con la marca, qué valores la guían (honestidad, cuidado, cercanía) y qué significa
+          para ella “belleza que realza tu esencia”.
+        </p>
+        <blockquote>
+          <p class="script">Belleza que realza tu esencia</p>
+        </blockquote>
+        <h2>Por qué confiar en nosotras</h2>
+        <ul>
+          <li>Texto provisional: diferenciador 1.</li>
+          <li>Texto provisional: diferenciador 2.</li>
+          <li>Texto provisional: diferenciador 3.</li>
+        </ul>
+        <p><a class="link-arrow" href="/crema-desmanchadora/">Conoce la crema →</a></p>
+      </div>
+    </div>
+  </section>
+  <div class="center leaf"><LeafSprig size={48} /></div>
+</BaseLayout>
+
+<style>
+  .about {
+    display: grid;
+    gap: clamp(48px, 7vw, 112px);
+  }
+  @media (min-width: 900px) {
+    .about {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: start;
+    }
+    .media {
+      position: sticky;
+      top: 110px;
+    }
+  }
+  .media {
+    position: relative;
+    max-width: 460px;
+    justify-self: center;
+  }
+  .media :global(img) {
+    border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+  }
+  .media :global(.about-blob) {
+    position: absolute;
+    inset: -6% -12%;
+    width: 124%;
+    height: 112%;
+    z-index: -1;
+  }
+  .prose .script {
+    margin: 0;
+  }
+  .leaf {
+    padding-bottom: 64px;
+  }
+  .leaf :global(svg) {
+    margin-inline: auto;
+  }
+</style>

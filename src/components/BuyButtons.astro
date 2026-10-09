@@ -1,0 +1,108 @@
+---
+/**
+ * Botones de compra hacia Mercado Libre y TikTok Shop.
+ * Si el enlace aún no existe en src/config/site.ts, el botón aparece
+ * desactivado con la leyenda "Muy pronto".
+ */
+import { site, buyPlatforms, type BuyPlatform } from '@/config/site';
+
+interface Props {
+  placement: 'hero' | 'sticky' | 'pdp' | 'final' | 'article' | 'header';
+  compact?: boolean;
+  class?: string;
+}
+
+const { placement, compact = false, class: className = '' } = Astro.props;
+const order: BuyPlatform[] = ['mercadolibre', 'tiktokshop'];
+---
+
+<div class:list={['buy-group', { 'buy-group--compact': compact }, className]} data-buy-group>
+  {
+    order.map((platform, i) => {
+      const href = site.buy[platform];
+      const { label, short } = buyPlatforms[platform];
+      const text = compact ? short : label;
+      const variant = i === 0 ? 'btn' : 'btn btn--outline';
+      return href ? (
+        <a
+          class={variant}
+          href={href}
+          rel="noopener"
+          data-buy={platform}
+          data-placement={placement}
+          data-platform={platform}
+        >
+          <span class:list={['dot', `dot--${platform}`]} aria-hidden="true" />
+          {text}
+        </a>
+      ) : (
+        <button class={variant} type="button" disabled data-platform={platform} aria-describedby={`soon-${placement}`}>
+          <span class:list={['dot', `dot--${platform}`]} aria-hidden="true" />
+          {short}
+          <span class="soon">Muy pronto</span>
+        </button>
+      );
+    })
+  }
+  {
+    !(site.buy.mercadolibre && site.buy.tiktokshop) && (
+      <span id={`soon-${placement}`} class="sr-only">
+        Las tiendas en línea se activarán muy pronto.
+      </span>
+    )
+  }
+</div>
+
+<style>
+  .buy-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .buy-group > :global(*) {
+    flex: 1 1 250px;
+    white-space: nowrap;
+  }
+  .buy-group--compact {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .buy-group--compact > :global(*) {
+    flex: 1 1 0;
+    min-height: 46px;
+    padding: 0.6em 0.9em;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+  }
+  /* Los colores de cada marketplace solo aparecen como un punto pequeño (regla 80/10/10). */
+  .dot--mercadolibre {
+    background: #ffe600;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12);
+  }
+  .dot--tiktokshop {
+    background: #111;
+    box-shadow: 2px 0 0 #25f4ee, -2px 0 0 #fe2c55;
+  }
+  .soon {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--ob-blush-100);
+    color: var(--ob-plum-700);
+  }
+  .buy-group--compact .soon {
+    display: none;
+  }
+  /* En el navegador interno de TikTok se prioriza TikTok Shop. */
+  :global(html[data-inapp='tiktok']) [data-platform='tiktokshop'] {
+    order: -1;
+  }
+</style>

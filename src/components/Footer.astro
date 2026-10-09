@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import { site, nav } from '@/config/site';
+import logo from '@/assets/img/logo-wordmark.png';
+import LeafSprig from './LeafSprig.astro';
+
+const socials = [
+  ['Instagram', site.social.instagram],
+  ['TikTok', site.social.tiktok],
+  ['Facebook', site.social.facebook],
+  ['YouTube', site.social.youtube],
+  ['LinkedIn', site.social.linkedin],
+] as const;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="top">
+      <div class="brand">
+        <Image src={logo} alt={site.signature} width={120} height={94} />
+        <p class="script">{site.tagline}</p>
+      </div>
+
+      <nav aria-label="Sitio">
+        <p class="col-title">Organic Beauty</p>
+        <ul>
+          {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+          <li><a href="/resenas/">Reseñas</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Ayuda">
+        <p class="col-title">Ayuda</p>
+        <ul>
+          <li><a href="/entrega-puerto-vallarta/">Entrega en Puerto Vallarta</a></li>
+          <li><a href="/preguntas-frecuentes/">Preguntas frecuentes</a></li>
+          <li><a href="/aviso-de-privacidad/">Aviso de privacidad</a></li>
+          <li><a href="/terminos/">Términos y condiciones</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="col-title">Síguenos</p>
+        <ul>
+          {
+            socials.map(([label, href]) =>
+              href ? (
+                <li><a href={href} rel="noopener me" target="_blank">{label}</a></li>
+              ) : (
+                <li class="muted">{label}</li>
+              ),
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <LeafSprig size={36} />
+      <p>© {year} {site.name}. Hecho con cuidado en {site.location.city}, {site.location.countryName}.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ob-ivory);
+    border-top: 1px solid var(--ob-line);
+    padding-block: 72px 32px;
+    font-size: 0.95rem;
+  }
+  .top {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 820px) {
+    .top {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+  }
+  .brand img {
+    width: 120px;
+  }
+  .brand .script {
+    font-size: 1.7rem;
+    margin-top: 12px;
+  }
+  .col-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ob-leaf-700);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .bottom {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ob-line);
+    color: var(--ob-gray-500);
+    font-size: 0.85rem;
+  }
+  .bottom p {
+    margin: 0;
+  }
+</style>

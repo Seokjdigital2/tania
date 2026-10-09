@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/PageIntro.astro';
+---
+
+<BaseLayout title="Página no encontrada" description="La página que buscas no existe." noindex>
+  <PageIntro eyebrow="Error 404" title="Esta página no existe" lead="Puede que el enlace haya cambiado. Te ayudamos a encontrar lo que buscas.">
+    <p style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+      <a class="btn" href="/">Ir al inicio</a>
+      <a class="btn btn--outline" href="/crema-desmanchadora/">Ver la crema</a>
+    </p>
+  </PageIntro>
+</BaseLayout>

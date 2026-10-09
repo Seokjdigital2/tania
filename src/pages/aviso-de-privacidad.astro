@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { site } from '@/config/site';
+const title = 'Aviso de privacidad';
+---
+
+<BaseLayout title={title} description={`Aviso de privacidad de ${site.name} conforme a la LFPDPPP.`} stickyBuy={false}>
+  <Breadcrumbs items={[{ name: title, href: '/aviso-de-privacidad/' }]} />
+  <section class="section">
+    <div class="container prose">
+      <h1>{title}</h1>
+      <p class="muted">
+        <strong>Plantilla provisional.</strong> Debe revisarla una persona experta antes del lanzamiento para cumplir con la Ley Federal de
+        Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).
+      </p>
+      <h2>Responsable</h2>
+      <p>{site.legalName}, con domicilio en {site.location.city}, {site.location.region}. Contacto: {site.contact.email || 'correo por confirmar'}.</p>
+      <h2>Datos que recabamos</h2>
+      <p>Este sitio no procesa pagos. Con tu consentimiento usamos cookies de analítica (Google Analytics, Meta y TikTok) para medir visitas. Si nos escribes, usamos tu nombre y medio de contacto solo para responderte.</p>
+      <h2>Finalidades</h2>
+      <ul>
+        <li>Medir y mejorar el funcionamiento del sitio.</li>
+        <li>Responder solicitudes de información.</li>
+      </ul>
+      <h2>Derechos ARCO</h2>
+      <p>Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición escribiendo a {site.contact.email || 'correo por confirmar'}.</p>
+      <h2>Cookies</h2>
+      <p>Puedes aceptar o rechazar las cookies de analítica desde el aviso que aparece en tu primera visita, o borrar las cookies de tu navegador en cualquier momento.</p>
+      <h2>Cambios</h2>
+      <p>Cualquier cambio a este aviso se publicará en esta página.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,291 @@
+---
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BuyButtons from '@/components/BuyButtons.astro';
+import BlushBlob from '@/components/BlushBlob.astro';
+import LeafSprig from '@/components/LeafSprig.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ReviewCard from '@/components/ReviewCard.astro';
+import { site, absoluteUrl } from '@/config/site';
+import { product, concerns } from '@/data/product';
+import { faqs } from '@/data/faq';
+import { reviews } from '@/data/reviews';
+import { productSchema } from '@/lib/schema';
+import heroImg from '@/assets/img/crema-tocador.jpg';
+import viewsImg from '@/assets/img/crema-vistas.jpg';
+import sizeImg from '@/assets/img/crema-medidas.jpg';
+
+const gallery = [
+  { src: heroImg, alt: 'Crema Organic Beauty sobre un tocador de mármol' },
+  { src: viewsImg, alt: 'Tarro de crema Organic Beauty desde tres ángulos' },
+  { src: sizeImg, alt: `Medidas del tarro: ${product.container.diameterCm} cm de diámetro y ${product.container.heightCm} cm de altura` },
+];
+const schemaImages = await Promise.all(
+  gallery.map(async (g) => absoluteUrl((await getImage({ src: g.src, width: 1200, format: 'jpg' })).src)),
+);
+
+const facts = [
+  ['Uso', product.tagline],
+  ['Contenido neto', product.netContent || 'Por confirmar'],
+  ['Envase', `${product.container.description}, ${product.container.diameterCm} × ${product.container.heightCm} cm`],
+  ['Tipo de piel', product.skinTypes],
+  ['Resultados', product.resultsTime],
+  ['Hecho en', `${site.location.city}, ${site.location.countryName}`],
+];
+
+const title = 'Crema desmanchadora para cara y cuerpo';
+const description =
+  'Crema Organic Beauty para atenuar la apariencia de manchas en cara, axilas, codos, rodillas y entrepierna. Modo de uso, ingredientes y dónde comprar en Mercado Libre o TikTok Shop.';
+---
+
+<BaseLayout title={title} description={description} ogType="product" ogImage="/og/crema.jpg" schema={[productSchema(schemaImages)]}>
+  <Breadcrumbs items={[{ name: 'La crema', href: '/crema-desmanchadora/' }]} />
+
+  <section class="pdp">
+    <div class="container pdp-grid">
+      <div class="gallery">
+        <div class="main-img">
+          <BlushBlob class="pdp-blob" />
+          <Image
+            src={gallery[0].src}
+            alt={gallery[0].alt}
+            widths={[420, 640, 900, 1254]}
+            sizes="(min-width: 1024px) 560px, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="thumbs">
+          {
+            gallery.slice(1).map((g) => (
+              <Image src={g.src} alt={g.alt} widths={[400, 700]} sizes="(min-width: 1024px) 280px, 46vw" />
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="info">
+        <span class="eyebrow">{site.name}</span>
+        <h1>{title}</h1>
+        <p class="lead">{product.description}</p>
+        <p class="price">
+          {product.priceMXN ? `Desde $${product.priceMXN} MXN en Mercado Libre y TikTok Shop` : 'Precio disponible muy pronto'}
+        </p>
+        <div id="comprar" data-sticky-trigger>
+          <BuyButtons placement="pdp" />
+        </div>
+        <p class="trust"><LeafSprig size={24} /> Entrega en {site.delivery.area} · Envíos a todo México</p>
+
+        <dl class="facts">
+          {
+            facts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="container detail-grid">
+      <div>
+        <h2>Beneficios</h2>
+        <ul class="list">
+          {product.benefits.map((b) => <li><strong>{b.title}.</strong> {b.text}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Modo de uso</h2>
+        <ol class="list">
+          {product.howToUse.map((s) => <li><strong>{s.title}.</strong> {s.text}</li>)}
+        </ol>
+      </div>
+      <div>
+        <h2>Ingredientes</h2>
+        <ul class="list">
+          {product.keyIngredients.map((i) => <li><strong>{i.name}.</strong> {i.text}</li>)}
+        </ul>
+        <p class="muted small">
+          <strong>Lista INCI completa:</strong>
+          {product.inci || 'por confirmar.'}
+        </p>
+      </div>
+      <div>
+        <h2>Precauciones</h2>
+        <ul class="list">{product.precautions.map((p) => <li>{p}</li>)}</ul>
+        <p class="muted small">Producto cosmético. No sustituye la valoración de un dermatólogo. Resultados individuales; pueden variar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Guías</span>
+        <h2>¿Dónde la puedes usar?</h2>
+      </div>
+      <div class="grid grid--4">
+        {
+          concerns.map((c) => (
+            <a class="card guide" href={`/manchas-en-la-piel/${c.slug}/`}>
+              <h3>{c.title}</h3>
+              <span class="link-arrow">Leer guía →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Opiniones</h2>
+      </div>
+      <div class="grid grid--3">{reviews.map((r) => <ReviewCard review={r} />)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-head center">
+        <h2>Preguntas sobre la crema</h2>
+      </div>
+      <FaqAccordion items={faqs.slice(0, 5)} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pdp {
+    padding-block: 32px var(--section-y);
+  }
+  .pdp-grid {
+    display: grid;
+    gap: clamp(40px, 6vw, 88px);
+  }
+  @media (min-width: 960px) {
+    .pdp-grid {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: start;
+    }
+    .info {
+      position: sticky;
+      top: 110px;
+    }
+  }
+  .main-img {
+    position: relative;
+  }
+  .main-img :global(img) {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .main-img :global(.pdp-blob) {
+    position: absolute;
+    inset: -6%;
+    width: 112%;
+    height: 112%;
+    z-index: -1;
+    opacity: 0.7;
+  }
+  .thumbs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .thumbs :global(img) {
+    border-radius: var(--radius);
+    border: 1px solid var(--ob-line);
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: var(--ob-white);
+  }
+  .info h1 {
+    font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+  }
+  .price {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+  .trust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--ob-gray-500);
+    margin-top: 18px;
+  }
+  .facts {
+    margin: 40px 0 0;
+    border-top: 1px solid var(--ob-line);
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: 9.5em 1fr;
+    gap: 16px;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--ob-line);
+    font-size: 0.95rem;
+  }
+  dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ob-leaf-700);
+    padding-top: 3px;
+  }
+  dd {
+    margin: 0;
+  }
+  .detail-grid {
+    display: grid;
+    gap: 56px;
+  }
+  @media (min-width: 820px) {
+    .detail-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px 96px;
+    }
+  }
+  .detail-grid h2 {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+  }
+  .list {
+    padding-left: 1.2em;
+  }
+  .list li {
+    margin-bottom: 10px;
+  }
+  .list li::marker {
+    color: var(--ob-leaf-500);
+  }
+  .list strong {
+    font-weight: 500;
+  }
+  .small {
+    font-size: 0.88rem;
+  }
+  .guide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    text-decoration: none;
+    min-height: 160px;
+  }
+  .guide:hover {
+    border-color: var(--ob-blush-500);
+  }
+  .guide .link-arrow {
+    align-self: flex-start;
+  }
+</style>

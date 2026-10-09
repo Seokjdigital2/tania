@@ -1,0 +1,167 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BuyButtons from '@/components/BuyButtons.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import LeafSprig from '@/components/LeafSprig.astro';
+import { site, absoluteUrl } from '@/config/site';
+import { ids } from '@/lib/schema';
+
+export async function getStaticPaths() {
+  const articles = (await getCollection('manchas')).sort((a, b) => a.data.order - b.data.order);
+  return articles.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      related: [articles[(i + 1) % articles.length], articles[(i + 2) % articles.length]],
+    },
+  }));
+}
+
+const { entry, related } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const url = absoluteUrl(`/manchas-en-la-piel/${entry.id}/`);
+const fmt = (date: Date) => date.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schema: object[] = [
+  {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: d.title,
+    description: d.description,
+    abstract: d.answer,
+    inLanguage: site.locale,
+    datePublished: d.published.toISOString(),
+    dateModified: (d.updated ?? d.published).toISOString(),
+    author: { '@id': ids.founder },
+    publisher: { '@id': ids.organization },
+    mainEntityOfPage: url,
+    about: { '@id': ids.product },
+  },
+];
+if (d.faqs.length) {
+  schema.push({
+    '@type': 'FAQPage',
+    mainEntity: d.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+
+<BaseLayout title={d.title} description={d.description} ogType="article" schema={schema}>
+  <Breadcrumbs
+    items={[
+      { name: 'Manchas en la piel', href: '/manchas-en-la-piel/' },
+      { name: d.title.split(':')[0], href: `/manchas-en-la-piel/${entry.id}/` },
+    ]}
+  />
+
+  <article class="section">
+    <div class="container article-grid">
+      <div class="prose">
+        <span class="eyebrow">Guía · Manchas en la piel</span>
+        <h1>{d.title}</h1>
+        <p class="byline">
+          Por <a href="/sobre-tania/">{site.founder.name}</a> · {site.founder.role} ·
+          <time datetime={(d.updated ?? d.published).toISOString()}>Actualizado el {fmt(d.updated ?? d.published)}</time>
+        </p>
+
+        <div class="answer">
+          <LeafSprig size={32} />
+          <p>{d.answer}</p>
+        </div>
+
+        <Content />
+
+        {
+          d.faqs.length > 0 && (
+            <>
+              <h2>Preguntas frecuentes</h2>
+              <FaqAccordion items={d.faqs} />
+            </>
+          )
+        }
+      </div>
+
+      <aside class="aside">
+        <div class="card cta">
+          <p class="eyebrow">Organic Beauty</p>
+          <p class="cta-title">Crema para cara y cuerpo</p>
+          <p class="muted">Ayuda a atenuar la apariencia de manchas con uso constante.</p>
+          <a class="link-arrow" href="/crema-desmanchadora/">Conoce la crema →</a>
+          <div class="cta-buttons"><BuyButtons placement="article" /></div>
+        </div>
+        <nav class="card related" aria-label="Guías relacionadas">
+          <p class="eyebrow">Sigue leyendo</p>
+          <ul>
+            {related.map((r) => <li><a href={`/manchas-en-la-piel/${r.id}/`}>{r.data.title}</a></li>)}
+            <li><a href="/manchas-en-la-piel/">Todas las guías</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-grid {
+    display: grid;
+    gap: 56px;
+  }
+  @media (min-width: 1000px) {
+    .article-grid {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 96px;
+    }
+    .aside {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+  }
+  .byline {
+    font-size: 0.9rem;
+    color: var(--ob-gray-500);
+  }
+  .answer {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin: 32px 0 8px;
+    padding: 24px 28px;
+    background: var(--ob-blush-100);
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+  }
+  .answer p {
+    margin: 0;
+  }
+  .answer :global(svg) {
+    flex: none;
+    margin-top: 4px;
+  }
+  .aside {
+    display: grid;
+    gap: 20px;
+  }
+  .cta-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .cta-buttons {
+    margin-top: 20px;
+  }
+  .cta-buttons :global(.buy-group > *) {
+    flex-basis: 100%;
+  }
+  .related ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+</style>

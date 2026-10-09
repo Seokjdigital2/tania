@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import LeafSprig from '@/components/LeafSprig.astro';
+import { absoluteUrl } from '@/config/site';
+import { ids } from '@/lib/schema';
+
+const articles = (await getCollection('manchas')).sort((a, b) => a.data.order - b.data.order);
+
+const title = 'Manchas en la piel: guía completa';
+const description =
+  'Guía de Organic Beauty sobre manchas en la piel: sol, melasma, axilas, entrepierna, codos, rodillas y marcas de acné. Causas, prevención y rutinas.';
+
+const schema = {
+  '@type': 'CollectionPage',
+  '@id': absoluteUrl('/manchas-en-la-piel/#page'),
+  name: title,
+  description,
+  isPartOf: { '@id': ids.website },
+  hasPart: articles.map((a) => ({ '@type': 'Article', headline: a.data.title, url: absoluteUrl(`/manchas-en-la-piel/${a.id}/`) })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[schema]}>
+  <Breadcrumbs items={[{ name: 'Manchas en la piel', href: '/manchas-en-la-piel/' }]} />
+
+  <section class="section intro">
+    <div class="container narrow center">
+      <LeafSprig size={56} />
+      <span class="eyebrow">Guía educativa</span>
+      <h1>{title}</h1>
+      <p class="lead">
+        Texto provisional: las manchas tienen causas distintas. Aquí te explicamos cada una con un lenguaje sencillo para que
+        sepas cómo cuidarte.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="container">
+      <ul class="grid grid--3 list">
+        {
+          articles.map((a) => (
+            <li>
+              <a class="card article" href={`/manchas-en-la-piel/${a.id}/`}>
+                <h2>{a.data.title}</h2>
+                <p class="muted">{a.data.description}</p>
+                <span class="link-arrow">Leer guía →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-bottom: 48px;
+  }
+  .intro :global(.leaf-sprig) {
+    margin: 0 auto 16px;
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .article {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+  }
+  .article:hover {
+    border-color: var(--ob-blush-500);
+  }
+  .article h2 {
+    font-size: 1.55rem;
+  }
+  .article p {
+    flex: 1;
+  }
+  .article .link-arrow {
+    align-self: flex-start;
+  }
+</style>

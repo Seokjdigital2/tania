@@ -109,7 +109,7 @@ Actúa como un **equipo senior multidisciplinario** que trabaja como una sola pe
 
 ## 4. Restricciones no negociables
 
-- **No inventes datos.** Ingredientes, porcentajes, resultados, número de clientas, reseñas, calificaciones, certificaciones o testimonios **solo salen del brief**. Si falta un dato, usa un marcador `{{FALTA: ...}}` visible en desarrollo y regístralo en `docs/pendientes.md`.
+- **No inventes datos.** Ingredientes, porcentajes, resultados, número de clientas, reseñas, calificaciones, certificaciones o testimonios **solo salen del brief**. Si falta un dato, usa un marcador `{{FALTA: ...}}` visible en desarrollo y regístralo en `docs/TABLERO.md`.
 - **Lenguaje cosmético, no médico** (normativa COFEPRIS). Prohibido: "cura", "elimina el melasma", "trata", "garantizado", "100 % efectivo", "resultados permanentes", "aprobado por dermatólogos" (salvo que exista evidencia). Permitido: "ayuda a atenuar la apariencia de manchas", "unifica visualmente el tono", "piel de aspecto más luminoso", "con uso constante".
 - Las **fotos de antes y después** solo se publican con consentimiento, con fecha y tiempo de uso, y con la leyenda "Resultados individuales; pueden variar".
 - **Sin saturación** (anti-Sephora): un mensaje principal por sección, un CTA principal por pantalla y nada de carruseles automáticos, pop-ups de entrada ni banners apilados.
@@ -152,7 +152,7 @@ Tokens de partida (ajustar con un cuentagotas sobre el logo vectorial final):
 
 ### 5.2 Logotipo
 
-- Se necesita el logo **en SVG vectorial**. La imagen de referencia es una foto de una pieza impresa con textura brillante y **no sirve como asset final**. Si no hay SVG, crea un marcador y registra en `docs/pendientes.md` que hace falta pedirlo o vectorizarlo.
+- Se necesita el logo **en SVG vectorial**. La imagen de referencia es una foto de una pieza impresa con textura brillante y **no sirve como asset final**. Si no hay SVG, crea un marcador y registra en `docs/TABLERO.md` que hace falta pedirlo o vectorizarlo.
 - Variantes: completa (ORGANIC / *Beauty* / Tania + mancha rosa + hojas), horizontal compacta para el header, monograma "B" con hoja para el favicon, y monocroma ciruela.
 - Siempre sobre fondo blanco o marfil, con un **margen de protección** mínimo igual a la altura de la "O" de ORGANIC.
 - Las hojas del logo se reutilizan como **elemento gráfico de marca** (separadores, viñetas, esquinas decorativas sutiles) en pocas cantidades.
@@ -298,7 +298,7 @@ Galería de imágenes (WebP/AVIF), nombre, presentación, precio de referencia (
 2. Todas las páginas de §6 con contenido real del brief o marcadores `{{FALTA}}` claros.
 3. Componentes: `Header`, `Footer`, `Hero`, `BuyButtons`, `StickyBuyBar`, `BenefitCard`, `IngredientList`, `HowToUse`, `ReviewCard`, `FaqAccordion`, `FounderCard`, `Breadcrumbs`, `LeafDivider`, `SeoHead`, `JsonLd`.
 4. `src/config/site.ts` como **única fuente de verdad** de marca, enlaces, redes y analítica, alimentada por el brief.
-5. `docs/pendientes.md` (datos faltantes), `docs/consistencia-de-entidad.md`, `docs/utm.md` y `docs/checklist-lanzamiento.md` (Search Console, Bing, IndexNow, Google Business Profile, verificación de píxeles).
+5. `docs/TABLERO.md` (datos faltantes), `docs/consistencia-de-entidad.md`, `docs/utm.md` y `docs/checklist-lanzamiento.md` (Search Console, Bing, IndexNow, Google Business Profile, verificación de píxeles).
 6. CI en GitHub Actions: build, chequeo de tipos, verificación de enlaces y Lighthouse CI con los presupuestos de §8.
 
 ---
@@ -312,7 +312,7 @@ Galería de imágenes (WebP/AVIF), nombre, presentación, precio de referencia (
 - [ ] La proporción visual aproximada es de 80 % blanco, 10 % rosa y 10 % verde hoja (revisada con captura de pantalla de cada página).
 - [ ] En móvil (390×844) el CTA de compra está visible en la primera pantalla y la barra fija aparece después del hero.
 - [ ] No queda ninguna afirmación médica prohibida (§4): se verifica con una búsqueda de `cura|elimina|garantiza|100%|trata` en el contenido.
-- [ ] Ningún dato inventado: cada `{{FALTA}}` está listado en `docs/pendientes.md`.
+- [ ] Ningún dato inventado: cada `{{FALTA}}` está listado en `docs/TABLERO.md`.
 - [ ] Los eventos de clic de compra se disparan correctamente (verificado con GA4 DebugView y Tag Assistant).
 - [ ] Los enlaces de compra funcionan desde el navegador interno de Instagram y de TikTok.
 
