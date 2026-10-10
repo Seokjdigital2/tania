@@ -1,5 +1,5 @@
 ---
-title: 'Axilas oscuras: causas y cómo aclarar su apariencia'
+title: 'Axilas oscuras: causas y cómo unificar su tono'
 description: 'Por qué se oscurecen las axilas (rasurado, fricción, desodorantes) y qué hábitos y cuidados ayudan a lucir un tono más uniforme.'
 answer: 'Las axilas se oscurecen principalmente por fricción, rasurado frecuente, irritación por desodorantes y acumulación de células muertas. Para lucir un tono más uniforme ayudan la depilación menos agresiva, ropa que no roce, exfoliación suave y una crema de uso diario para unificar el tono.'
 order: 3

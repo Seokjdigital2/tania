@@ -106,7 +106,7 @@ Todo en `src/data/product.ts`.
 
 | # | Tema | Estado | Notas |
 |---|---|---|---|
-| 9.1 | Validar el mensaje "Tu piel sin manchas" con asesoría regulatoria | ⬜ | Ver `docs/VERSION-2.md`. |
+| 9.1 | Mensaje principal | ✅ | "Piel luminosa, tono uniforme" / botón "Quiero mi piel luminosa". Validación final con asesoría regulatoria recomendada. |
 | 9.2 | Elegir versión 1 o 2 para lanzar | ⬜ | |
 
 ## 10. Día del lanzamiento
