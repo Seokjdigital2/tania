@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="top">
       <div class="brand">
-        <Image src={logo} alt={site.signature} width={120} height={94} />
+        <Image src={logo} alt={site.signature} width={150} densities={[1, 2]} />
         <p class="script">{site.tagline}</p>
       </div>
 
@@ -80,7 +80,7 @@ const year = new Date().getFullYear();
     }
   }
   .brand img {
-    width: 120px;
+    width: 150px;
   }
   .brand .script {
     font-size: 1.7rem;

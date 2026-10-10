@@ -359,7 +359,7 @@ const zones = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 22% 50%;
+    object-position: center;
   }
   .hero2-card {
     position: relative;
@@ -409,8 +409,9 @@ const zones = [
     color: var(--ob-gray-500);
   }
   @media (min-width: 1000px) {
+    /* La sección toma la proporción original de la foto (1672×941) para mostrarla completa. */
     .hero2 {
-      min-height: min(86vh, 820px);
+      aspect-ratio: 1672 / 941;
     }
     .hero2-photo {
       position: absolute;
@@ -428,22 +429,39 @@ const zones = [
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-block: 56px;
+      padding-block: clamp(24px, 3vw, 56px);
     }
     .hero2-card {
-      width: min(460px, 42%);
+      width: min(440px, 40%);
+    }
+  }
+  @media (min-width: 1000px) and (max-width: 1279px) {
+    /* Tarjeta más compacta para que quepa dentro de la foto sin recortarla. */
+    .hero2-card {
+      padding: 24px 28px;
+    }
+    .hero2-product {
+      width: 92px;
+      margin-bottom: 12px;
+    }
+    .hero2 h1 {
+      font-size: 2.5rem;
+    }
+    .hero2 .price-tag {
+      margin-bottom: 12px;
+    }
+    .disclaimer {
+      display: none;
     }
   }
   @media (max-width: 999px) {
     .hero2-photo {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1672 / 941;
       overflow: hidden;
     }
-    .hero2-photo :global(img) {
-      object-position: 18% 50%;
-    }
     .hero2-inner {
-      margin-top: -72px;
+      position: relative;
+      margin-top: 14px;
       padding-bottom: 32px;
     }
     .hero2-card {
@@ -451,8 +469,8 @@ const zones = [
       background: var(--ob-white);
     }
     .hero2-product {
-      width: 112px;
-      margin: -76px auto 14px;
+      width: 96px;
+      margin: -58px auto 12px;
     }
     .hero2 .price-tag {
       justify-content: center;

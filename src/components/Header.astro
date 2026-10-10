@@ -48,7 +48,7 @@ const path = Astro.url.pathname;
     </nav>
 
     <a href="/" class="brand" aria-label={`${site.name}, inicio`}>
-      <Image src={logo} alt={site.signature} width={110} height={86} loading="eager" fetchpriority="high" />
+      <Image src={logo} alt={site.signature} width={124} densities={[1, 2]} loading="eager" fetchpriority="high" />
     </a>
 
     <div class="actions">
@@ -154,12 +154,12 @@ const path = Astro.url.pathname;
     display: block;
   }
   .brand img {
-    width: 110px;
+    width: 124px;
     height: auto;
     transition: width 0.25s var(--ease);
   }
   .site-header:global(.is-scrolled) .brand img {
-    width: 84px;
+    width: 98px;
   }
   .nav {
     grid-column: 1;
@@ -249,7 +249,7 @@ const path = Astro.url.pathname;
     }
     .brand img,
     .site-header:global(.is-scrolled) .brand img {
-      width: 74px;
+      width: 88px;
     }
     .menu-toggle {
       display: block;
