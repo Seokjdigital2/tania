@@ -22,7 +22,7 @@ Mientras siga así, todas las páginas llevan `noindex` y se muestra la franja "
 | # | Dato | Estado | Notas |
 |---|---|---|---|
 | 2.1 | Logotipo | ✅ / ⬜ | Logo nuevo integrado (PNG transparente de alta resolución, `src/assets/img/logo-wordmark.png`). Pendiente: versión SVG o vectorial para impresión. |
-| 2.1b | ⚠️ El logo dice **"ORGANIC Beauty"** pero la marca se llama **Beauty Organic** | ⬜ | Para SEO y para las IAs conviene que el logo, el sitio y los marketplaces digan lo mismo. Decidir si se ajusta el logo. |
+| 2.1b | Nombre: el logo dice "Organic Beauty · Tania" y el sitio "Beauty Organic" | ✅ Decidido | Tania conserva el logo tal cual; el sitio, el schema y `llms.txt` usan **Beauty Organic**. |
 | 2.2 | Variante monograma para favicon | ⬜ | Hoy el favicon es el logo completo reducido. |
 | 2.3 | Dominio definitivo | ⬜ | `astro.config.mjs` → `SITE_URL` y `src/config/site.ts` → `url` (hoy dice `beautyorganic.mx`). |
 | 2.4 | Razón social | ⬜ | `site.legalName` |
